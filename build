@@ -1,0 +1,61 @@
+#!/bin/bash
+
+#uncomment in a new build environment
+#sudo apt-get install subversion devscripts pbuilder debhelper
+
+VERSION=`cat version`
+PACKAGE=`cat package`
+
+echo "Previous version number:" $VERSION
+echo "New version number?"
+
+read NEW_VERSION
+
+if [ -n $VERSION ]
+then
+  sed -i "s/$VERSION/$NEW_VERSION/" debian/changelog
+  echo $NEW_VERSION > version
+fi
+
+gedit debian/changelog
+
+if ! test -d SDL-1.2.14
+then
+  if ! test -f SDL-1.2.14.tar.gz
+  then
+    wget http://www.libsdl.org/release/SDL-1.2.14.tar.gz
+    tar xzvf SDL-1.2.14.tar.gz
+  fi
+  svn export http://diyps3controller.googlecode.com/svn/trunk/libsdl/patch
+  cd SDL-1.2.14
+  patch -p1 < ../patch
+  ./configure ; make
+  cd ..
+fi
+
+mkdir -p $PACKAGE-$NEW_VERSION
+
+cp -r debian $PACKAGE-$NEW_VERSION
+
+cd $PACKAGE-$NEW_VERSION
+
+echo -n " -- Matlo <mat.lau@laposte.net>  "$(date -R) >> debian/changelog
+
+svn checkout http://diyps3controller.googlecode.com/svn/trunk/sixaxis-emu
+svn checkout http://diyps3controller.googlecode.com/svn/trunk/sixaxis-emu-configurator
+svn checkout http://diyps3controller.googlecode.com/svn/trunk/sixemugui
+svn checkout http://diyps3controller.googlecode.com/svn/trunk/sixstatus
+mkdir -p libsdl/lib
+mkdir -p libsdl/include/SDL
+cp ../SDL-1.2.14/build/.libs/libSDL.so libsdl/lib
+cp ../SDL-1.2.14/include/* libsdl/include/SDL
+svn export http://diyps3controller.googlecode.com/svn/trunk/Makefile
+
+debuild --no-tgz-check -S
+
+#uncomment in a new build environment
+#sudo pbuilder create
+
+sudo pbuilder build ../$PACKAGE\_$NEW_VERSION-1.dsc
+
+cp /var/cache/pbuilder/result/$PACKAGE\_$NEW_VERSION-1_*.deb ..
