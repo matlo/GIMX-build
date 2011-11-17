@@ -11,19 +11,19 @@ test -f /bin/wget || mingw-get install msys-wget
 test -f /bin/unzip || mingw-get install msys-unzip
 test -f $PREFIX/bin/iconv.h || mingw-get install mingw32-libiconv
 
+if ! test -f cpu
+then
+  wget http://diyps3controller.googlecode.com/svn/trunk/build/win/cpu.c
+  gcc -o cpu cpu.c
+  rm cpu.c
+fi
+
 if ! test $1 = "sources"
 then
   wget http://www.gimx.fr/archive/GIMX-libs-dev.tar.gz
   tar --strip-components=1 -C $PREFIX -xzvf GIMX-libs-dev.tar.gz
   rm -rf GIMX-libs-dev GIMX-libs-dev.tar.gz
-else
-  if ! test -f cpu
-  then
-    wget http://diyps3controller.googlecode.com/svn/trunk/build/win/cpu.c
-    gcc -o cpu cpu.c
-    rm cpu.c
-  fi
-  
+else  
   CPU=$(./cpu)
   
   #build the SDL library
