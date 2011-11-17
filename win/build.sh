@@ -20,17 +20,8 @@ fi
 #checkout & compile GIMX
 if ! test -d GIMX
 then
-  mkdir -p GIMX
-  cd GIMX
-  svn checkout http://diyps3controller.googlecode.com/svn/trunk/sixaxis-emu
-  svn checkout http://diyps3controller.googlecode.com/svn/trunk/sixaxis-emu-configurator
-  svn checkout http://diyps3controller.googlecode.com/svn/trunk/sixemugui-serial
-  svn checkout http://diyps3controller.googlecode.com/svn/trunk/sixstatus
-  svn checkout http://diyps3controller.googlecode.com/svn/trunk/fpsconfig
-  svn export http://diyps3controller.googlecode.com/svn/trunk/Makefile.win
-  cd ..
+  svn checkout http://diyps3controller.googlecode.com/svn/trunk/GIMX
 fi
 
 cd GIMX
 make -f Makefile.win -j $CPU install
-
