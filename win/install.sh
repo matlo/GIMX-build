@@ -19,7 +19,7 @@ then
 else
   if ! test -f cpu
   then
-    wget http://diyps3controller.googlecode.com/svn/trunk/win/cpu.c
+    wget http://diyps3controller.googlecode.com/svn/trunk/build/win/cpu.c
     gcc -o cpu cpu.c
     rm cpu.c
   fi
