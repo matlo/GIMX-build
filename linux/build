@@ -1,7 +1,9 @@
 #!/bin/bash
 
+#don't forget to add universe to ~/.pbuilderrc
+
 #uncomment in a new build environment
-#sudo apt-get install subversion devscripts pbuilder debhelper
+#sudo apt-get install gdebi subversion devscripts pbuilder debhelper
 
 VERSION=`cat version`
 PACKAGE=`cat package`
@@ -36,20 +38,17 @@ fi
 mkdir -p $PACKAGE-$NEW_VERSION
 
 cp -r debian $PACKAGE-$NEW_VERSION
+cp Makefile $PACKAGE-$NEW_VERSION
 
 cd $PACKAGE-$NEW_VERSION
 
 echo -n " -- Matlo <mat.lau@laposte.net>  "$(date -R) >> debian/changelog
 
-svn checkout http://diyps3controller.googlecode.com/svn/trunk/sixaxis-emu
-svn checkout http://diyps3controller.googlecode.com/svn/trunk/sixaxis-emu-configurator
-svn checkout http://diyps3controller.googlecode.com/svn/trunk/sixemugui
-svn checkout http://diyps3controller.googlecode.com/svn/trunk/sixstatus
+svn checkout http://diyps3controller.googlecode.com/svn/trunk/GIMX
 mkdir -p libsdl/lib
 mkdir -p libsdl/include/SDL
 cp ../SDL-1.2.14/build/.libs/libSDL.so libsdl/lib
 cp ../SDL-1.2.14/include/* libsdl/include/SDL
-svn export http://diyps3controller.googlecode.com/svn/trunk/Makefile
 
 debuild --no-tgz-check -S
 
