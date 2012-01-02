@@ -12,7 +12,7 @@ SVN_VERSION=1.6.17
 #install svn
 if ! test -f /usr/local/bin/svn.exe
 then
-  wget http://www.gimx.fr/archive/svn-win32-$SVN_VERSION.zip
+  wget http://diyps3controller.googlecode.com/files/svn-win32-$SVN_VERSION.zip
   unzip -u -d /usr/local/ svn-win32-$SVN_VERSION.zip
   rm -rf svn-win32-$SVN_VERSION svn-win32-$SVN_VERSION.zip
 fi
