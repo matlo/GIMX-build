@@ -20,7 +20,7 @@ fi
 
 if ! test $1 = "sources"
 then
-  wget http://www.gimx.fr/archive/GIMX-libs-dev.tar.gz
+  wget http://diyps3controller.googlecode.com/files/GIMX-libs-dev.tar.gz
   tar --strip-components=1 -C $PREFIX -xzvf GIMX-libs-dev.tar.gz
   rm -rf GIMX-libs-dev GIMX-libs-dev.tar.gz
 else  
