@@ -1,4 +1,4 @@
 #!/bin/bash
 
-chmod ug+s /usr/bin/emuclient /usr/bin/emu /usr/bin/sixaddr /usr/bin/bdaddr /usr/bin/hcirevision
+chmod ug+s /usr/bin/emuclient /usr/bin/emu /usr/bin/sixaddr /usr/bin/bdaddr /usr/bin/hcirevision /usr/bin/usbspoof
 
