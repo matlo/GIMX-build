@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "GIMX"
-#define MyAppVersion "0.25"
+#define MyAppVersion "0.30"
 #define MyAppPublisher "MatLauLab"
 #define MyAppURL "http://gimx.fr"
 #define MyApp1 "gimx-serial"
