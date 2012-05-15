@@ -9,7 +9,8 @@ ZLIB=1.2.3
 test -f /bin/patch || mingw-get install msys-patch
 test -f /bin/wget || mingw-get install msys-wget
 test -f /bin/unzip || mingw-get install msys-unzip
-test -f $PREFIX/bin/iconv.h || mingw-get install mingw32-libiconv
+test -f $PREFIX/include/iconv.h || mingw-get install mingw32-libiconv
+test -f $PREFIX/include/curses.h || mingw-get install mingw32-libpdcurses
 
 if ! test -f cpu
 then
