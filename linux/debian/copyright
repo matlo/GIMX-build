@@ -1,6 +1,6 @@
 This work was packaged for Debian by:
 
-    Matlo <mat.lau@laposte.net> on Sun, 09 Jan 2011 17:55:43 +0100
+    Matlo <mat.lau@laposte.net> on Tue, 05 Jun 2012 23:28:40 +0200
 
 It was downloaded from:
 
@@ -12,8 +12,8 @@ Upstream Author(s):
 
 Copyright:
 
-    Copyright (c) 2009 Jim Paris <jim@jtan.com>
-    Copyright (C) 2010 Mathieu Laurendeau <mat.lau@laposte.net>
+    Copyright (C) 2009 Jim Paris <jim@jtan.com>
+    Copyright (C) 2010-2012 Mathieu Laurendeau <mat.lau@laposte.net>
 
 License:
 
@@ -23,14 +23,6 @@ The Debian packaging is:
 
     Copyright (C) 2011 Matlo <mat.lau@laposte.net>
 
-# Please chose a license for your packaging work. If the program you package
-# uses a mainstream license, using the same license is the safest choice.
-# Please avoid to pick license terms that are more restrictive than the
-# packaged work, as it may make Debian's contributions unacceptable upstream.
-# If you just want it to be GPL version 3, leave the following lines in.
-
 and is licensed under the GPL version 3,
 see "/usr/share/common-licenses/GPL-3".
 
-# Please also look if there are files or directories which have a
-# different copyright/license attached and list them here.
