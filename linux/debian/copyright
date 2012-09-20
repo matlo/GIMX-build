@@ -1,6 +1,6 @@
 This work was packaged for Debian by:
 
-    Matlo <mat.lau@laposte.net> on Tue, 05 Jun 2012 23:28:40 +0200
+    Matlo <mat.lau@laposte.net> on Tue, 11 Sep 2012 22:05:02 +0200
 
 It was downloaded from:
 
@@ -21,7 +21,7 @@ License:
 
 The Debian packaging is:
 
-    Copyright (C) 2011 Matlo <mat.lau@laposte.net>
+    Copyright (C) 2012 Matlo <mat.lau@laposte.net>
 
 and is licensed under the GPL version 3,
 see "/usr/share/common-licenses/GPL-3".
