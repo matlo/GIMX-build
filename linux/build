@@ -13,11 +13,25 @@ echo "New version number?"
 
 read NEW_VERSION
 
+if [ -z $NEW_VERSION ]
+then
+  NEW_VERSION=$VERSION
+fi
+
 if [ -n $VERSION ]
 then
   sed -i "s/$VERSION/$NEW_VERSION/" debian/changelog
   echo $NEW_VERSION > version
 fi
+
+wget http://code.google.com/p/diyps3controller/issues/list?can=7 -O fixed.html
+FIXED=`cat fixed.html | grep "id: " | sed 's/[a-z: },]//g' | sed ':a;N;$!ba;s/\n/ /g'`
+
+sed -i "s/  \* Fixed issues: [0-9 ]*/  \* Fixed issues: $FIXED/" debian/changelog
+
+sed -i "s/ -- Matlo <mat.lau@laposte.net>  [^\n]*/ -- Matlo <mat.lau@laposte.net>  $(date -R)/" debian/changelog
+
+sed -i "s/    Matlo <mat.lau@laposte.net> on [^\n]*/    Matlo <mat.lau@laposte.net> on $(date -R)/" debian/copyright
 
 gedit debian/changelog
 
@@ -41,8 +55,6 @@ cp -r debian $PACKAGE-$NEW_VERSION
 cp Makefile $PACKAGE-$NEW_VERSION
 
 cd $PACKAGE-$NEW_VERSION
-
-echo -n " -- Matlo <mat.lau@laposte.net>  "$(date -R) >> debian/changelog
 
 svn checkout http://diyps3controller.googlecode.com/svn/trunk/GIMX
 mkdir -p libsdl/lib
