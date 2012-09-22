@@ -13,22 +13,6 @@ echo "New version number?"
 
 read NEW_VERSION
 
-if [ -n $NEW_VERSION ]
-then
-  MAJOR=$(echo $NEW_VERSION | awk -F"." '{print $1}')
-  MINOR=$(echo $NEW_VERSION | awk -F"." '{print $2}')
-  echo Major release number: $MAJOR
-  echo Minor release number: $MINOR
-  if [ -z $MAJOR ] || [ -z $MINOR ]
-  then
-    echo Invalid release number!
-    exit
-  fi
-  
-  sed -i "s/#define[ ]*INFO_VERSION[ ]*\"[0-9]*.[0-9]*\"/#define INFO_VERSION \"$MAJOR.$MINOR\"/" GIMX/info.h
-  sed -i "s/#define[ ]*INFO_YEAR[ ]*\"2010-[0-9]*\"/#define INFO_YEAR \"2010-$(DATE '+%Y')\"/" GIMX/info.h
-fi
-
 if [ -z $NEW_VERSION ]
 then
   NEW_VERSION=$VERSION
@@ -77,6 +61,22 @@ mkdir -p libsdl/lib
 mkdir -p libsdl/include/SDL
 cp ../SDL-1.2.14/build/.libs/libSDL.so libsdl/lib
 cp ../SDL-1.2.14/include/* libsdl/include/SDL
+
+if [ -n $NEW_VERSION ]
+then
+  MAJOR=$(echo $NEW_VERSION | awk -F"." '{print $1}')
+  MINOR=$(echo $NEW_VERSION | awk -F"." '{print $2}')
+  echo Major release number: $MAJOR
+  echo Minor release number: $MINOR
+  if [ -z $MAJOR ] || [ -z $MINOR ]
+  then
+    echo Invalid release number!
+    exit
+  fi
+  
+  sed -i "s/#define[ ]*INFO_VERSION[ ]*\"[0-9]*.[0-9]*\"/#define INFO_VERSION \"$MAJOR.$MINOR\"/" GIMX/info.h
+  sed -i "s/#define[ ]*INFO_YEAR[ ]*\"2010-[0-9]*\"/#define INFO_YEAR \"2010-$(DATE '+%Y')\"/" GIMX/info.h
+fi
 
 debuild --no-tgz-check -S
 
