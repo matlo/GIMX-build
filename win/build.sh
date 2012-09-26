@@ -4,7 +4,7 @@
 # Warning: changing the version will clean the sources and remove the setup directory!!!!
 #
 VERSION=$1
-OLDVERSION=$(grep INFO_VERSION GIMX/info.h | sed "s/#define[ ]*INFO_VERSION[ ]*//" | sed "s/\"//g")
+OLDVERSION=$(grep INFO_VERSION GIMX/info.h 2> /dev/null | sed "s/#define[ ]*INFO_VERSION[ ]*//" | sed "s/\"//g")
 
 if test -f cpu
 then
