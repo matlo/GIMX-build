@@ -29,7 +29,7 @@ then
   svn checkout http://diyps3controller.googlecode.com/svn/trunk/GIMX
 fi
 
-if [ -n $VERSION ]
+if [ -n "$VERSION" ]
 then
   MAJOR=$(echo $VERSION | awk -F"." '{print $1}')
   MINOR=$(echo $VERSION | awk -F"." '{print $2}')
@@ -54,7 +54,7 @@ fi
 
 cd GIMX
 
-if [ -n $VERSION ] && [ "$VERSION" != "$OLDVERSION" ]
+if [ -n "$VERSION" ] && [ "$VERSION" != "$OLDVERSION" ]
 then
   echo Version changed: clean before build.
   make -f Makefile.win clean
@@ -65,7 +65,7 @@ make -f Makefile.win -j $CPU install
 
 cd ..
 
-if [ -n $VERSION ]
+if [ -n "$VERSION" ]
 then
   /c/Program\ Files/Inno\ Setup\ 5/ISCC.exe inno.iss
 fi
