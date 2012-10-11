@@ -11,6 +11,7 @@ test -f /bin/wget || mingw-get install msys-wget
 test -f /bin/unzip || mingw-get install msys-unzip
 test -f $PREFIX/include/iconv.h || mingw-get install mingw32-libiconv
 test -f $PREFIX/include/curses.h || mingw-get install mingw32-libpdcurses
+test -f $PREFIX/include/libintl.h || mingw-get install mingw32-gettext
 
 if ! test -f cpu
 then
