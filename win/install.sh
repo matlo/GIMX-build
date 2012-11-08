@@ -20,7 +20,7 @@ then
   rm cpu.c
 fi
 
-if ! test $1 = "sources"
+if ! test "$1" = "sources"
 then
   wget http://diyps3controller.googlecode.com/files/GIMX-libs-dev.tar.gz
   tar --strip-components=1 -C $PREFIX -xzvf GIMX-libs-dev.tar.gz
