@@ -2,13 +2,13 @@ Source: sixemu
 Section: unknown
 Priority: extra
 Maintainer: Matlo <mat.lau@laposte.net>
-Build-Depends: debhelper (>= 7.0.50~), libusb-dev, libdbus-1-dev, libglib2.0-dev, libbluetooth-dev, libsdl1.2-dev, libxml2-dev, libwxgtk2.8-dev, libxi-dev, libdirectfb-1.2-9, libsvga1-dev, libusb-1.0-0-dev, libncursesw5-dev
+Build-Depends: debhelper (>= 7.0.50~), libusb-dev, libdbus-1-dev, libglib2.0-dev, libbluetooth-dev, libsdl1.2-dev, libxml2-dev, libwxgtk2.8-dev, libxi-dev, libdirectfb-1.2-9, libsvga1-dev, libusb-1.0-0-dev, libncursesw5-dev, gettext
 Standards-Version: 3.8.4
 Homepage: http://code.google.com/p/diyps3controller/
 
 Package: sixemu
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, libusb-1.0-0, libdbus-1-3, libglib2.0-0, libbluetooth3, libxml2, libwxgtk2.8-0, xterm, libncursesw5
+Depends: ${shlibs:Depends}, ${misc:Depends}, libusb-1.0-0, libdbus-1-3, libglib2.0-0, libbluetooth3, libxml2, libwxgtk2.8-0, xterm, libncursesw5, xdg-utils
 Description: Sixaxis emulator
  This software emulates a sixaxis and allows to control the PS3 with mice, keyboards, or joysticks.
 
