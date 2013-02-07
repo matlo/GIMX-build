@@ -8,7 +8,7 @@ Homepage: http://code.google.com/p/diyps3controller/
 
 Package: sixemu
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, libusb-1.0-0, libdbus-1-3, libglib2.0-0, libbluetooth3, libxml2, libwxgtk2.8-0, xterm, libncursesw5, xdg-utils
+Depends: ${shlibs:Depends}, ${misc:Depends}, libusb-1.0-0, libdbus-1-3, libglib2.0-0, libbluetooth3, libxml2, libwxgtk2.8-0, xterm, libncursesw5, xdg-utils, zenity
 Description: Sixaxis emulator
  This software emulates a sixaxis and allows to control the PS3 with mice, keyboards, or joysticks.
 

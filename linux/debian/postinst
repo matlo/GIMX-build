@@ -2,3 +2,18 @@
 
 chmod ug+s /usr/bin/emuclient /usr/bin/emu /usr/bin/sixaddr /usr/bin/bdaddr /usr/bin/hcirevision /usr/bin/usbspoof
 
+GROUP=$(ls -l /dev/input/event* | tail -n 1 | awk '{ print $4 }')
+INPUT="input"
+USER=$(who am i | awk '{print $1}')
+if [ "$GROUP" != "$INPUT" ]
+then
+	if zenity --question --title "Input permissions" --text "Add a udev rule to set input permissions?"
+	then
+		groupadd -f $INPUT
+		gpasswd -a $USER $INPUT
+		echo "KERNEL==\"event*\", NAME=\"input/%k\", MODE:=\"660\", GROUP=\"$INPUT\"" > /etc/udev/rules.d/99-input.rules
+		echo "KERNEL==\"js*\", NAME=\"input/%k\", MODE:=\"664\", GROUP=\"$INPUT\"" >> /etc/udev/rules.d/99-input.rules
+		udevadm trigger
+		zenity --info --title "Done" --text "Log out and log in again to finish setting input permissions."
+	fi
+fi
