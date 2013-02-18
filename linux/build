@@ -35,20 +35,6 @@ sed -i "s/    Matlo <mat.lau@laposte.net> on [^\n]*/    Matlo <mat.lau@laposte.n
 
 gedit debian/changelog
 
-if ! test -d SDL-1.2.14
-then
-  if ! test -f SDL-1.2.14.tar.gz
-  then
-    wget http://www.libsdl.org/release/SDL-1.2.14.tar.gz
-    tar xzvf SDL-1.2.14.tar.gz
-  fi
-  svn export http://diyps3controller.googlecode.com/svn/trunk/libsdl/patch
-  cd SDL-1.2.14
-  patch -p1 < ../patch
-  ./configure ; make
-  cd ..
-fi
-
 mkdir -p $PACKAGE-$NEW_VERSION
 
 cp -r debian $PACKAGE-$NEW_VERSION
@@ -57,10 +43,6 @@ cp Makefile $PACKAGE-$NEW_VERSION
 cd $PACKAGE-$NEW_VERSION
 
 svn checkout http://diyps3controller.googlecode.com/svn/trunk/GIMX
-mkdir -p libsdl/lib
-mkdir -p libsdl/include/SDL
-cp ../SDL-1.2.14/build/.libs/libSDL.so libsdl/lib
-cp ../SDL-1.2.14/include/* libsdl/include/SDL
 
 if [ -n $NEW_VERSION ]
 then
@@ -86,3 +68,4 @@ debuild --no-tgz-check -S
 sudo pbuilder build ../$PACKAGE\_$NEW_VERSION-1.dsc
 
 cp /var/cache/pbuilder/result/$PACKAGE\_$NEW_VERSION-1_*.deb ..
+
