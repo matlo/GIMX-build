@@ -7,9 +7,10 @@
 
 VERSION=`cat version`
 PACKAGE=`cat package`
+TARGET_ARCH=`cat architecture`
+DATE=`date -R`
 
-echo "Previous version number:" $VERSION
-echo "New version number?"
+echo "Version number? (default: "$VERSION")"
 
 read NEW_VERSION
 
@@ -18,22 +19,38 @@ then
   NEW_VERSION=$VERSION
 fi
 
-if [ -n $VERSION ]
+echo "Target architecture? (default: "$TARGET_ARCH")"
+
+read NEW_TARGET_ARCH
+
+if [ -z $NEW_TARGET_ARCH ]
 then
-  sed -i "s/$VERSION/$NEW_VERSION/" debian/changelog
-  echo $NEW_VERSION > version
+  NEW_TARGET_ARCH=$TARGET_ARCH
+fi
+
+if [ -z $NEW_VERSION ]
+then
+  echo No version specified!
+  exit
+fi
+
+if [ -z $NEW_TARGET_ARCH ]
+then
+  echo No architecture specified!
+  exit
+fi
+
+echo $NEW_VERSION > version
+echo $NEW_TARGET_ARCH > architecture
+
+if [ "$NEW_TARGET_ARCH" != "$TARGET_ARCH" ]
+then
+  sudo pbuilder create --architecture $NEW_TARGET_ARCH
 fi
 
 wget http://code.google.com/p/diyps3controller/issues/list?can=7 -O fixed.html
 FIXED=`cat fixed.html | grep "id: " | sed 's/[a-z: },]//g' | sed ':a;N;$!ba;s/\n/ /g'`
-
-sed -i "s/  \* Fixed issues: [0-9 ]*/  \* Fixed issues: $FIXED/" debian/changelog
-
-sed -i "s/ -- Matlo <mat.lau@laposte.net>  [^\n]*/ -- Matlo <mat.lau@laposte.net>  $(date -R)/" debian/changelog
-
-sed -i "s/    Matlo <mat.lau@laposte.net> on [^\n]*/    Matlo <mat.lau@laposte.net> on $(date -R)/" debian/copyright
-
-gedit debian/changelog
+rm fixed.html
 
 mkdir -p $PACKAGE-$NEW_VERSION
 
@@ -41,6 +58,16 @@ cp -r debian $PACKAGE-$NEW_VERSION
 cp Makefile $PACKAGE-$NEW_VERSION
 
 cd $PACKAGE-$NEW_VERSION
+
+sed -i "s/#VERSION#/$NEW_VERSION/" debian/changelog
+sed -i "s/#FIXED#/$FIXED/" debian/changelog
+sed -i "s/#DATE#/$DATE/" debian/changelog
+
+nano debian/changelog
+
+sed -i "s/#DATE#/$DATE/" debian/copyright
+
+nano debian/copyright
 
 svn checkout http://diyps3controller.googlecode.com/svn/trunk/GIMX
 
@@ -62,10 +89,7 @@ fi
 
 debuild --no-tgz-check -S
 
-#uncomment in a new build environment
-#sudo pbuilder create
-
-sudo pbuilder build ../$PACKAGE\_$NEW_VERSION-1.dsc
+sudo pbuilder build ../$PACKAGE\_$NEW_VERSION-1.dsc --architecture $NEW_TARGET_ARCH
 
 cp /var/cache/pbuilder/result/$PACKAGE\_$NEW_VERSION-1_*.deb ..
 
