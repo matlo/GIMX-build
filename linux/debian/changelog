@@ -1,5 +1,5 @@
-sixemu (0.50-1) unstable; urgency=low
+sixemu (#VERSION#-1) unstable; urgency=low
 
-  * Fixed issues: 28 123 126 183 185 186 187
+  * Fixed issues: #FIXED#
 
- -- Matlo <mat.lau@laposte.net>  Tue, 11 Sep 2012 22:05:02 +0200
+ -- Matlo <mat.lau@laposte.net>  #DATE#
