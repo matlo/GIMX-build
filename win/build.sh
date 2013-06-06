@@ -57,11 +57,11 @@ cd GIMX
 if [ -n "$VERSION" ] && [ "$VERSION" != "$OLDVERSION" ]
 then
   echo Version changed: clean before build.
-  make -f Makefile.win clean
+  make clean
   rm -rf setup
 fi
 
-make -f Makefile.win -j $CPU install
+make -j $CPU install
 
 cd ..
 
