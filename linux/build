@@ -69,7 +69,7 @@ sed -i "s/#DATE#/$DATE/" debian/copyright
 
 nano debian/copyright
 
-svn checkout http://diyps3controller.googlecode.com/svn/trunk/GIMX
+git clone -b master --single-branch --depth 1 https://github.com/matlo/GIMX.git
 
 if [ -n $NEW_VERSION ]
 then
