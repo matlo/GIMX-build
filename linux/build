@@ -9,6 +9,7 @@ VERSION=`cat version`
 PACKAGE=`cat package`
 TARGET_ARCH=`cat architecture`
 DATE=`date -R`
+BRANCH="1.xy"
 
 echo "Version number? (default: "$VERSION")"
 
@@ -48,8 +49,8 @@ then
   sudo pbuilder create --architecture $NEW_TARGET_ARCH
 fi
 
-wget http://code.google.com/p/diyps3controller/issues/list?can=7 -O fixed.html
-FIXED=`cat fixed.html | grep "id: " | sed 's/[a-z: },]//g' | sed ':a;N;$!ba;s/\n/ /g'`
+wget -O fixed.html "https://github.com/matlo/GIMX/issues?labels=GIMX+$NEW_VERSION&state=closed"
+FIXED=`cat fixed.html | grep "list-group-item-number" | sed 's/[^#0-9]//g' | sed ':a;N;$!ba;s/\n/ /g'`
 rm fixed.html
 
 mkdir -p $PACKAGE-$NEW_VERSION
@@ -69,7 +70,7 @@ sed -i "s/#DATE#/$DATE/" debian/copyright
 
 nano debian/copyright
 
-git clone -b master --single-branch --depth 1 https://github.com/matlo/GIMX.git
+git clone -b $BRANCH --single-branch --depth 1 https://github.com/matlo/GIMX.git
 
 if [ -n $NEW_VERSION ]
 then
