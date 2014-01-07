@@ -9,7 +9,7 @@ VERSION=`cat version`
 PACKAGE=`cat package`
 TARGET_ARCH=`cat architecture`
 DATE=`date -R`
-BRANCH="1.xy"
+BRANCH="master"
 
 echo "Version number? (default: "$VERSION")"
 
