@@ -5,6 +5,7 @@
 #
 VERSION=$1
 OLDVERSION=$(grep INFO_VERSION GIMX/info.h 2> /dev/null | sed "s/#define[ ]*INFO_VERSION[ ]*//" | sed "s/\"//g")
+BRANCH="1.xy"
 
 if test -f cpu
 then
@@ -16,7 +17,7 @@ fi
 #checkout & compile GIMX
 if ! test -d GIMX
 then
-  git clone -b master --single-branch --depth 1 https://github.com/matlo/GIMX.git
+  git clone -b $BRANCH --single-branch --depth 1 https://github.com/matlo/GIMX.git
 fi
 
 if [ -n "$VERSION" ]
