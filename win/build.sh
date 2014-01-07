@@ -5,7 +5,7 @@
 #
 VERSION=$1
 OLDVERSION=$(grep INFO_VERSION GIMX/info.h 2> /dev/null | sed "s/#define[ ]*INFO_VERSION[ ]*//" | sed "s/\"//g")
-BRANCH="1.xy"
+BRANCH="master"
 
 if test -f cpu
 then
