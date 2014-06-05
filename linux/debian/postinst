@@ -1,6 +1,6 @@
 #!/bin/bash
 
-chmod ug+s /usr/bin/gimx /usr/bin/sixaddr /usr/bin/bdaddr /usr/bin/hcirevision
+chmod u+s /usr/bin/gimx /usr/bin/sixaddr /usr/bin/bdaddr /usr/bin/hcirevision
 
 INPUT="input"
 
