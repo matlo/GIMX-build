@@ -1,6 +1,6 @@
 #!/bin/bash
 
-chmod u+s /usr/bin/gimx /usr/bin/sixaddr /usr/bin/bdaddr /usr/bin/hcirevision
+chmod u+s /usr/bin/gimx /usr/bin/sixaddr /usr/bin/bdaddr /usr/bin/hcirevision /usr/bin/ds4tool
 
 INPUT="input"
 
@@ -10,6 +10,5 @@ echo "KERNEL==\"event*\", NAME=\"input/%k\", MODE:=\"660\", GROUP=\"$INPUT\"" > 
 echo "KERNEL==\"js*\", NAME=\"input/%k\", MODE:=\"664\", GROUP=\"$INPUT\"" >> /etc/udev/rules.d/99-gimx-input.rules
 chgrp $INPUT /dev/input/event* /dev/input/js* &> /dev/null
 
-chgrp $INPUT /usr/bin/gimx-config /usr/bin/gimx-fpsconfig /usr/bin/gimx-bluetooth /usr/bin/gimx-serial
-chmod g+s /usr/bin/gimx-config /usr/bin/gimx-fpsconfig /usr/bin/gimx-bluetooth /usr/bin/gimx-serial
-
+chgrp $INPUT /usr/bin/gimx-config /usr/bin/gimx-fpsconfig /usr/bin/gimx-launcher
+chmod g+s /usr/bin/gimx-config /usr/bin/gimx-fpsconfig /usr/bin/gimx-launcher
