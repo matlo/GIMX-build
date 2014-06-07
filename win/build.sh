@@ -5,7 +5,7 @@
 #
 VERSION=$1
 OLDVERSION=$(grep INFO_VERSION GIMX/info.h 2> /dev/null | sed "s/#define[ ]*INFO_VERSION[ ]*//" | sed "s/\"//g")
-BRANCH="master"
+BRANCH="dev"
 
 if test -f cpu
 then
@@ -52,7 +52,7 @@ then
   rm -rf setup
 fi
 
-make -j $CPU install
+make -j $CPU install BINDIR=/$MSYSTEM
 
 cd ..
 
