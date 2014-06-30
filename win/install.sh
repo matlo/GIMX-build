@@ -23,8 +23,8 @@ pacman --noconfirm -U *.pkg.tar.xz
 wget https://raw.githubusercontent.com/matlo/GIMX-tools/master/MINGW-packages/patches/hidsdi.h.patch
 wget https://raw.githubusercontent.com/matlo/GIMX-tools/master/MINGW-packages/patches/hidclass.h.patch
 
-patch -d /$MSYSTEM/$ARCH-w64-$MSYSTEM/include -p0 < hidsdi.h.patch
-patch -d /$MSYSTEM/$ARCH-w64-$MSYSTEM/include/ddk -p0 < hidclass.h.patch
+patch -d /$MSYSTEM/$ARCH-w64-mingw32/include -p0 < hidsdi.h.patch
+patch -d /$MSYSTEM/$ARCH-w64-mingw32/include/ddk -p0 < hidclass.h.patch
 
 cd ..
 rm -rf gimx-install
