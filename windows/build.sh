@@ -68,6 +68,6 @@ then
   then
     mv gimx-$VERSION.exe gimx-i686-$VERSION.exe
   else
-    mv gimx-$VERSION.exe gimx-x68_64-$VERSION.exe
+    mv gimx-$VERSION.exe gimx-x86_64-$VERSION.exe
   fi
 fi
