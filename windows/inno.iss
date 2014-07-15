@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "GIMX"
-#define MyAppVersion "0.51"
+#define MyAppVersion "0.00"
 #define MyAppPublisher "MatLauLab"
 #define MyAppURL "http://gimx.fr"
 #define MyApp1 "gimx-serial"
@@ -27,7 +27,7 @@ AppUpdatesURL={#MyAppURL}
 DefaultDirName={pf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 OutputDir=.
-OutputBaseFilename=setup-{#MyAppVersion}
+OutputBaseFilename=gimx-{#MyAppVersion}
 Compression=lzma
 SolidCompression=yes
 

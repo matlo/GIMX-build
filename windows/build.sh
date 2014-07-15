@@ -64,4 +64,10 @@ then
   else
     /c/Program\ Files/Inno\ Setup\ 5/ISCC.exe inno.iss
   fi
+  if [ "$MSYSTEM" == "MINGW32" ]
+  then
+    mv gimx-$VERSION.exe gimx-i686-$VERSION.exe
+  else
+    mv gimx-$VERSION.exe gimx-x68_64-$VERSION.exe
+  fi
 fi
