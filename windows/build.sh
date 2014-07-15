@@ -58,7 +58,7 @@ cd ..
 
 if [ -n "$VERSION" ]
 then
-  if [ "$PROCESSOR_ARCHITEW6432" == "AMD64" ]
+  if test -f /c/Program\ Files\ \(x86\)/Inno\ Setup\ 5/ISCC.exe
   then
     /c/Program\ Files\ \(x86\)/Inno\ Setup\ 5/ISCC.exe inno.iss
   else
