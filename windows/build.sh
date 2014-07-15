@@ -58,6 +58,10 @@ cd ..
 
 if [ -n "$VERSION" ]
 then
+  if [ "$PROCESSOR_ARCHITEW6432" != "AMD64" ]
+  then
+    sed "/ArchitecturesInstallIn64BitMode/d" -i inno.iss
+  fi
   if test -f /c/Program\ Files\ \(x86\)/Inno\ Setup\ 5/ISCC.exe
   then
     /c/Program\ Files\ \(x86\)/Inno\ Setup\ 5/ISCC.exe inno.iss
