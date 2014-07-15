@@ -52,7 +52,7 @@ then
   rm -rf setup
 fi
 
-make -j $CPU install BINDIR=/$MSYSTEM
+make -j $CPU install
 
 cd ..
 
