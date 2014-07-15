@@ -58,7 +58,7 @@ cd ..
 
 if [ -n "$VERSION" ]
 then
-  if [ "$PROCESSOR_ARCHITEW6432" != "AMD64" ]
+  if [ "$MSYSTEM" == "MINGW32" ]
   then
     sed "/ArchitecturesInstallIn64BitMode/d" -i inno.iss
   fi
