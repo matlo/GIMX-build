@@ -70,8 +70,8 @@ then
   fi
   if [ "$MSYSTEM" == "MINGW32" ]
   then
-    mv gimx-$VERSION.exe gimx-i686-$VERSION.exe
+    mv gimx-$VERSION.exe gimx-$VERSION-i686.exe
   else
-    mv gimx-$VERSION.exe gimx-x86_64-$VERSION.exe
+    mv gimx-$VERSION.exe gimx-$VERSION-x86_64.exe
   fi
 fi
