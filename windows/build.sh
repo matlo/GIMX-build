@@ -60,7 +60,9 @@ if [ -n "$VERSION" ]
 then
   if [ "$MSYSTEM" == "MINGW32" ]
   then
-    sed "/ArchitecturesInstallIn64BitMode/d" -i inno.iss
+    sed -i "s/[; ]*ArchitecturesInstallIn64BitMode/; ArchitecturesInstallIn64BitMode/" -i inno.iss
+  else
+    sed -i "s/[; ]*ArchitecturesInstallIn64BitMode/ArchitecturesInstallIn64BitMode/" -i inno.iss
   fi
   if test -f /c/Program\ Files\ \(x86\)/Inno\ Setup\ 5/ISCC.exe
   then
