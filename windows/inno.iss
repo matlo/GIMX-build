@@ -52,6 +52,3 @@ Name: "{commondesktop}\{#MyApp3}"; Filename: "{app}\{#MyAppExeName3}"; Tasks: de
 
 [Run]
 Filename: "{app}\{#MyAppExeName1}"; Description: "{cm:LaunchProgram,{#StringChange(MyApp1, "&", "&&")}}"; Flags: nowait postinstall skipifsilent
-Filename: "{app}\{#MyAppExeName2}"; Description: "{cm:LaunchProgram,{#StringChange(MyApp2, "&", "&&")}}"; Flags: nowait postinstall skipifsilent
-Filename: "{app}\{#MyAppExeName3}"; Description: "{cm:LaunchProgram,{#StringChange(MyApp3, "&", "&&")}}"; Flags: nowait postinstall skipifsilent
-
