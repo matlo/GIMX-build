@@ -19,6 +19,8 @@ then
   exit
 fi
 
+echo $NEW_VERSION > version
+
 if test -f cpu
 then
   CPU=$(./cpu)
