@@ -57,17 +57,19 @@ cd GIMX
 make -j $CPU install
 cd ..
 
-if [ "$MSYSTEM" == "MINGW32" ]
+INNO_OPTIONS=""
+
+if [ "$MSYSTEM" == "MINGW64" ]
 then
-  sed -i "s/[; ]*ArchitecturesInstallIn64BitMode/; ArchitecturesInstallIn64BitMode/" -i inno.iss
-else
-  sed -i "s/[; ]*ArchitecturesInstallIn64BitMode/ArchitecturesInstallIn64BitMode/" -i inno.iss
+  export MSYS2_ARG_CONV_EXCL="/dW64"
+  INNO_OPTIONS+="/dW64"
 fi
+
 if test -f /c/Program\ Files\ \(x86\)/Inno\ Setup\ 5/ISCC.exe
 then
-  /c/Program\ Files\ \(x86\)/Inno\ Setup\ 5/ISCC.exe inno.iss
+  /c/Program\ Files\ \(x86\)/Inno\ Setup\ 5/ISCC.exe $INNO_OPTIONS inno.iss
 else
-  /c/Program\ Files/Inno\ Setup\ 5/ISCC.exe inno.iss
+  /c/Program\ Files/Inno\ Setup\ 5/ISCC.exe $INNO_OPTIONS inno.iss
 fi
 
 if [ "$MSYSTEM" == "MINGW32" ]
