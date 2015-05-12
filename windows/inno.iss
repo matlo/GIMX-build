@@ -42,6 +42,13 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 
 [Files]
 Source: "GIMX\setup\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+#ifdef W64
+Source: "tools\CP210x_VCP_Windows\*"; Excludes: "*x86*"; DestDir: "{app}\tools\CP210x_VCP_Windows"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "tools\usbdk\*"; Excludes: "*x86*"; DestDir: "{app}\tools\usbdk\"; Flags: ignoreversion recursesubdirs createallsubdirs
+#else
+Source: "tools\CP210x_VCP_Windows\*"; DestDir: "{app}\tools\CP210x_VCP_Windows"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "tools\usbdk\*"; DestDir: "{app}\tools\usbdk\"; Flags: ignoreversion recursesubdirs createallsubdirs
+#endif
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
@@ -53,4 +60,8 @@ Name: "{group}\{#MyApp3}"; Filename: "{app}\{#MyAppExeName3}"
 Name: "{commondesktop}\{#MyApp3}"; Filename: "{app}\{#MyAppExeName3}"; Tasks: desktopicon
 
 [Run]
+Filename: "{app}\tools\CP210x_VCP_Windows\CP210xVCPInstaller_x64.exe"; Description: "{cm:LaunchProgram,CP210x driver installer}"; Check: IsWin64(); Flags: runascurrentuser postinstall skipifsilent
+Filename: "{app}\tools\CP210x_VCP_Windows\CP210xVCPInstaller_x86.exe"; Description: "{cm:LaunchProgram,CP210x driver installer}"; Check: not IsWin64(); Flags: runascurrentuser postinstall skipifsilent
+Filename: "msiexec.exe"; Description: "{cm:LaunchProgram,USBDK installer}"; Parameters: "/i ""{app}\tools\usbdk\UsbDk_1.0.4_x64.msi"""; Check: IsWin64(); Flags: runascurrentuser postinstall skipifsilent
+Filename: "msiexec.exe"; Description: "{cm:LaunchProgram,USBDK installer}"; Parameters: "/i ""{app}\tools\usbdk\UsbDk_1.0.4_x86.msi"""; Check: not IsWin64(); Flags: runascurrentuser postinstall skipifsilent
 Filename: "{app}\{#MyAppExeName1}"; Description: "{cm:LaunchProgram,{#StringChange(MyApp1, "&", "&&")}}"; Flags: nowait postinstall skipifsilent
