@@ -59,10 +59,42 @@ cd ..
 
 INNO_OPTIONS=""
 
+TOOLS_DIR="tools"
+
+TOOLS_USBDK_DIR="$TOOLS_DIR/usbdk"
+
+USBDK_MSI_X64="UsbDk_1.0.4_x64.msi"
+USBDK_MSI_X86="UsbDk_1.0.4_x86.msi"
+
 if [ "$MSYSTEM" == "MINGW64" ]
 then
   export MSYS2_ARG_CONV_EXCL="/dW64"
   INNO_OPTIONS+="/dW64"
+fi
+
+mkdir -p $TOOLS_USBDK_DIR
+
+if ! test -f $TOOLS_USBDK_DIR/$USBDK_MSI_X64
+then
+  wget http://www.spice-space.org/download/windows/usbdk/$USBDK_MSI_X64 -O $TOOLS_USBDK_DIR/$USBDK_MSI_X64
+fi
+
+if [ "$MSYSTEM" == "MINGW32" ]
+then
+  if ! test -f $TOOLS_USBDK_DIR/$USBDK_MSI_X86
+  then
+    wget http://www.spice-space.org/download/windows/usbdk/$USBDK_MSI_X86 -O $TOOLS_USBDK_DIR/$USBDK_MSI_X86
+  fi
+fi
+
+CP2102_ZIP="CP210x_VCP_Windows.zip"
+
+if ! test -f $TOOLS_DIR/$CP2102_ZIP
+then
+  cd tools
+  wget http://gimx.fr/download/CP210x_VCP_Windows -O $CP2102_ZIP
+  unzip CP210x_VCP_Windows.zip
+  cd ..
 fi
 
 if test -f /c/Program\ Files\ \(x86\)/Inno\ Setup\ 5/ISCC.exe
