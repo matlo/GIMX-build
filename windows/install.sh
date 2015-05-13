@@ -14,16 +14,12 @@ pacman --noconfirm -S mingw-w64-$ARCH-gcc mingw-w64-$ARCH-SDL2 mingw-w64-$ARCH-l
 mkdir gimx-install
 cd gimx-install
 
-wget https://github.com/matlo/GIMX-tools/releases/download/1.0/mingw-w64-$ARCH-pdcurses-3.4.0-1-any.pkg.tar.xz
-wget https://github.com/matlo/GIMX-tools/releases/download/1.0/mingw-w64-$ARCH-wxMSW-2.8.12-1-any.pkg.tar.xz
+wget https://github.com/matlo/GIMX-tools/releases/download/2.0/mingw-w64-$ARCH-pdcurses-3.4.0-1-any.pkg.tar.xz
+wget https://github.com/matlo/GIMX-tools/releases/download/2.0/mingw-w64-$ARCH-wxMSW-2.8.12-1-any.pkg.tar.xz
+wget https://github.com/matlo/GIMX-tools/releases/download/2.0/mingw-w64-$ARCH-libusb-usbdk-0.0.0-1-any.pkg.tar.xz
+wget https://github.com/matlo/GIMX-tools/releases/download/2.0/mingw-w64-$ARCH-SDL2-2.0.3-2-any.pkg.tar.xz
 
 pacman --noconfirm -U *.pkg.tar.xz
-
-wget https://raw.githubusercontent.com/matlo/GIMX-tools/master/MINGW-packages/patches/hidsdi.h.patch
-wget https://raw.githubusercontent.com/matlo/GIMX-tools/master/MINGW-packages/patches/hidclass.h.patch
-
-patch -d /$MSYSTEM/$ARCH-w64-mingw32/include -p0 < hidsdi.h.patch
-patch -d /$MSYSTEM/$ARCH-w64-mingw32/include/ddk -p0 < hidclass.h.patch
 
 cd ..
 rm -rf gimx-install
