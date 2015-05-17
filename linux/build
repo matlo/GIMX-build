@@ -3,10 +3,10 @@
 #don't forget to add universe to ~/.pbuilderrc
 
 #uncomment in a new build environment
-#sudo apt-get install gdebi subversion devscripts pbuilder debhelper
+#sudo apt-get install gdebi devscripts pbuilder debhelper
 
+PACKAGE="gimx"
 VERSION=`cat version`
-PACKAGE=`cat package`
 TARGET_ARCH=`cat architecture`
 DATE=`date -R`
 BRANCH="master"
@@ -53,6 +53,8 @@ if [ "$NEW_TARGET_ARCH" != "$TARGET_ARCH" ]
 then
   sudo pbuilder create --architecture $NEW_TARGET_ARCH
 fi
+
+rm -rf gimx*
 
 git clone -b $BRANCH --single-branch --depth 1 https://github.com/matlo/GIMX.git
 
