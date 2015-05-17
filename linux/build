@@ -54,7 +54,7 @@ then
   sudo pbuilder create --architecture $NEW_TARGET_ARCH
 fi
 
-rm -rf gimx*
+rm -rf $PACKAGE*
 
 git clone -b $BRANCH --single-branch --depth 1 https://github.com/matlo/GIMX.git
 
