@@ -4,7 +4,7 @@ This work was packaged for Debian by:
 
 It was downloaded from:
 
-    http://code.google.com/p/diyps3controller/
+    https://github.com/matlo/GIMX
 
 Upstream Author(s):
 
@@ -13,7 +13,7 @@ Upstream Author(s):
 Copyright:
 
     Copyright (C) 2009 Jim Paris <jim@jtan.com>
-    Copyright (C) 2010-2012 Mathieu Laurendeau <mat.lau@laposte.net>
+    Copyright (C) 2010-#YEAR# Mathieu Laurendeau <mat.lau@laposte.net>
 
 License:
 
@@ -21,7 +21,7 @@ License:
 
 The Debian packaging is:
 
-    Copyright (C) 2012 Matlo <mat.lau@laposte.net>
+    Copyright (C) #YEAR# Matlo <mat.lau@laposte.net>
 
 and is licensed under the GPL version 3,
 see "/usr/share/common-licenses/GPL-3".

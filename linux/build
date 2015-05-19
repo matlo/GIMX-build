@@ -9,6 +9,7 @@ PACKAGE="gimx"
 VERSION=`cat version`
 TARGET_ARCH=`cat architecture`
 DATE=`date -R`
+YEAR=`date +"%Y"`
 BRANCH="master"
 
 echo "Version number? (default: "$VERSION")"
@@ -24,6 +25,7 @@ FIXED=`curl -s -L "https://github.com/matlo/GIMX/issues?labels=GIMX+$NEW_VERSION
 
 echo Fixed: $FIXED
 echo Date: $DATE
+echo Year: $YEAR
 
 echo "Target architecture? (default: "$TARGET_ARCH")"
 
@@ -69,6 +71,7 @@ sed -i "s/#FIXED#/$FIXED/" debian/changelog
 sed -i "s/#DATE#/$DATE/" debian/changelog
 
 sed -i "s/#DATE#/$DATE/" debian/copyright
+sed -i "s/#YEAR#/$YEAR/" debian/copyright
 
 if [ -n $NEW_VERSION ]
 then
