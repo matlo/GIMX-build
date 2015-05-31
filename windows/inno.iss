@@ -18,8 +18,6 @@
 
 #define SilabsCP210xAppId "B97004A400E30DCF940971EFA7A0C13C6B0A4B66"
 
-#define W64 1
-
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
 ; Do not use the same AppId value in installers for other applications.
