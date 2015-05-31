@@ -199,7 +199,7 @@ begin
   end
   else
   begin
-    if (MsgBox(appName + ' ' + oldVersion + ' is already installed. Do you want to override it with {#MyAppVersion} now?',
+    if (MsgBox(appName + ' ' + oldVersion + ' is installed. Do you want to override it with {#MyAppVersion} now?',
 	  mbConfirmation, MB_YESNO) = IDNO) then
 	begin
 	  Result := False;
