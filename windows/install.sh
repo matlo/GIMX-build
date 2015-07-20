@@ -1,6 +1,6 @@
 #!/bin/bash
 
-pacman --noconfirm -S man git make diffutils patch p7zip unzip
+pacman --noconfirm -S wget man git make diffutils patch p7zip unzip
 
 if test "$MSYSTEM" = "MINGW32"
 then
