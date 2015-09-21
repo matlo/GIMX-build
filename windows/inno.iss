@@ -13,8 +13,8 @@
 #define MyApp3 "gimx-fpsconfig"
 #define MyAppExeName3 "gimx-fpsconfig.exe"
 
-#define UsbdkVersion "1.0.4"
-#define UsbdkAppId "{DE78E7B1-43E5-4278-9678-174A6EC4444E}"
+#define UsbdkVersion "1.0.6"
+#define UsbdkAppId "{88D578EB-E9E7-46E3-A042-FDD18E518225}"
 
 #define SilabsCP210xAppId "B97004A400E30DCF940971EFA7A0C13C6B0A4B66"
 

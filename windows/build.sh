@@ -53,9 +53,7 @@ sed -i "s/#define[ ]*INFO_YEAR[ ]*\"2010-[0-9]*\"/#define INFO_YEAR \"2010-$(DAT
 
 sed -i "s/#define[ ]*MyAppVersion[ ]*\"[0-9]*.[0-9]*\"/#define MyAppVersion \"$MAJOR.$MINOR\"/" inno.iss
 
-cd GIMX
-make -j $CPU install
-cd ..
+make -C GIMX -j $CPU install
 
 INNO_OPTIONS=""
 
@@ -63,8 +61,8 @@ TOOLS_DIR="tools"
 
 TOOLS_USBDK_DIR="$TOOLS_DIR/usbdk"
 
-USBDK_MSI_X64="UsbDk_1.0.4_x64.msi"
-USBDK_MSI_X86="UsbDk_1.0.4_x86.msi"
+USBDK_MSI_X64="UsbDk_1.0.6_x64.msi"
+USBDK_MSI_X86="UsbDk_1.0.6_x86.msi"
 
 if [ "$MSYSTEM" == "MINGW64" ]
 then
