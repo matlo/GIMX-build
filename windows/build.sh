@@ -61,8 +61,9 @@ TOOLS_DIR="tools"
 
 TOOLS_USBDK_DIR="$TOOLS_DIR/usbdk"
 
-USBDK_MSI_X64="UsbDk_1.0.6_x64.msi"
-USBDK_MSI_X86="UsbDk_1.0.6_x86.msi"
+USBDK_VERSION="1.0.7"
+USBDK_MSI_X64="UsbDk_${USBDK_VERSION}_x64.msi"
+USBDK_MSI_X86="UsbDk_${USBDK_VERSION}_x86.msi"
 
 if [ "$MSYSTEM" == "MINGW64" ]
 then
