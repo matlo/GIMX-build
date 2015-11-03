@@ -3,7 +3,7 @@
 
 #define MyAppName "GIMX"
 #define MyAppId "{DCCE138F-C418-464F-BF07-FD69ED63D20E}"
-#define MyAppVersion "0.00"
+#define MyAppVersion "0.0"
 #define MyAppPublisher "MatLauLab"
 #define MyAppURL "http://gimx.fr"
 #define MyApp1 "gimx-launcher"
@@ -13,8 +13,8 @@
 #define MyApp3 "gimx-fpsconfig"
 #define MyAppExeName3 "gimx-fpsconfig.exe"
 
-#define UsbdkVersion "1.0.6"
-#define UsbdkAppId "{88D578EB-E9E7-46E3-A042-FDD18E518225}"
+#define UsbdkVersion "1.0.7"
+#define UsbdkAppId "{E8206CD6-89B4-4CDF-8A1A-274552D1EB3A}"
 
 #define SilabsCP210xAppId "B97004A400E30DCF940971EFA7A0C13C6B0A4B66"
 
@@ -50,12 +50,12 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Source: "GIMX\setup\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 #ifdef W64
 Source: "tools\CP210x_VCP_Windows\*"; Excludes: "*x86*"; DestDir: "{app}\tools\CP210x_VCP_Windows"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "tools\usbdk\*"; Excludes: "*x86*"; DestDir: "{app}\tools\usbdk\"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "tools\usbdk\UsbDk_{#UsbdkVersion}_x64.msi"; DestDir: "{app}\tools\usbdk\"; Flags: ignoreversion recursesubdirs createallsubdirs
 #else
 Source: "tools\CP210x_VCP_Windows\*"; Excludes: "*x86*"; DestDir: "{app}\tools\CP210x_VCP_Windows"; Check: IsWin64() ; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "tools\usbdk\*"; Excludes: "*x86*"; DestDir: "{app}\tools\usbdk\"; Check: IsWin64() ; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "tools\CP210x_VCP_Windows\*"; Excludes: "*x64*"; DestDir: "{app}\tools\CP210x_VCP_Windows"; Check: not IsWin64() ; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "tools\usbdk\*"; Excludes: "*x64*"; DestDir: "{app}\tools\usbdk\"; Check: not IsWin64() ; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "tools\usbdk\UsbDk_{#UsbdkVersion}_x64.msi"; DestDir: "{app}\tools\usbdk\"; Check: IsWin64() ; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "tools\usbdk\UsbDk_{#UsbdkVersion}_x86.msi"; DestDir: "{app}\tools\usbdk\"; Check: not IsWin64() ; Flags: ignoreversion recursesubdirs createallsubdirs
 #endif
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
@@ -68,8 +68,8 @@ Name: "{group}\{#MyApp3}"; Filename: "{app}\{#MyAppExeName3}"
 Name: "{commondesktop}\{#MyApp3}"; Filename: "{app}\{#MyAppExeName3}"; Tasks: desktopicon
 
 [Run]
-Filename: "msiexec.exe"; Parameters: "/i ""{app}\tools\usbdk\UsbDk_{#UsbdkVersion}_x64.msi"" /qn"; Check: IsWin64() and not AppInstalled(True, False, '{#UsbdkAppId}') ; StatusMsg: "Installing USBDK {#UsbdkVersion}..."
-Filename: "msiexec.exe"; Parameters: "/i ""{app}\tools\usbdk\UsbDk_{#UsbdkVersion}_x86.msi"" /qn"; Check: not IsWin64() and not AppInstalled(True, False, '{#UsbdkAppId}') ; StatusMsg: "Installing USBDK {#UsbdkVersion}..."
+Filename: "msiexec.exe"; Parameters: "/i ""{app}\tools\usbdk\UsbDk_{#UsbdkVersion}_x64.msi"" /qn"; Description: "Install USBDK"; Check: IsWin64() and not AppInstalled(True, False, '{#UsbdkAppId}') ; Flags: runascurrentuser postinstall skipifsilent
+Filename: "msiexec.exe"; Parameters: "/i ""{app}\tools\usbdk\UsbDk_{#UsbdkVersion}_x86.msi"" /qn"; Description: "Install USBDK"; Check: not IsWin64() and not AppInstalled(True, False, '{#UsbdkAppId}') ; Flags: runascurrentuser postinstall skipifsilent
 Filename: "{app}\tools\CP210x_VCP_Windows\CP210xVCPInstaller_x64.exe"; Description: "{cm:LaunchProgram,CP210x driver installer}"; Check: IsWin64() and not AppInstalled(True, False, '{#SilabsCP210xAppId}') ; Flags: runascurrentuser postinstall skipifsilent
 Filename: "{app}\tools\CP210x_VCP_Windows\CP210xVCPInstaller_x86.exe"; Description: "{cm:LaunchProgram,CP210x driver installer}"; Check: not IsWin64() and not AppInstalled(True, False, '{#SilabsCP210xAppId}') ; Flags: runascurrentuser postinstall skipifsilent
 Filename: "{app}\{#MyAppExeName1}"; Description: "{cm:LaunchProgram,{#StringChange(MyApp1, "&", "&&")}}"; Flags: nowait postinstall skipifsilent
