@@ -61,9 +61,15 @@ TOOLS_DIR="tools"
 
 TOOLS_USBDK_DIR="$TOOLS_DIR/usbdk"
 
-USBDK_VERSION="1.0.7"
+USBDK_VERSION="1.0.12"
+USBDK_PRODUCT_CODE_X64="{2D9B7372-C3A9-4C50-9149-058EF0CF512B}"
+USBDK_PRODUCT_CODE_X86="{296A4498-8BC3-4212-8E37-6B8ADFF9399B}"
 USBDK_MSI_X64="UsbDk_${USBDK_VERSION}_x64.msi"
 USBDK_MSI_X86="UsbDk_${USBDK_VERSION}_x86.msi"
+
+sed -i "s/#define[ ]*UsbdkVersion[ ]*\"[0-9]*.[0-9]*.[0-9]*\"/#define UsbdkVersion \"${USBDK_VERSION}\"/" inno.iss
+sed -i "s/#define[ ]*UsbdkAppIdx64[ ]*\"{.*}\"/#define UsbdkAppIdx64 \"${USBDK_PRODUCT_CODE_X64}\"/" inno.iss
+sed -i "s/#define[ ]*UsbdkAppIdx86[ ]*\"{.*}\"/#define UsbdkAppIdx86 \"${USBDK_PRODUCT_CODE_X86}\"/" inno.iss
 
 if [ "$MSYSTEM" == "MINGW64" ]
 then
@@ -86,14 +92,19 @@ then
   fi
 fi
 
-CP2102_ZIP="CP210x_VCP_Windows.zip"
+CP210X_ZIP="CP210x_VCP_Windows.zip"
 
-if ! test -f $TOOLS_DIR/$CP2102_ZIP
+CP210X_PRODUCT_CODE="F189C013BFD9D0C73BEC97AD2CFF0CF7CAD1E670"
+sed -i "s/#define[ ]*SilabsCP210xAppId[ ]*\"{.*}\"/#define SilabsCP210xAppId \"${CP210X_PRODUCT_CODE}\"/" inno.iss
+
+if ! test -f $TOOLS_DIR/$CP210X_ZIP
 then
   cd tools
-  wget http://gimx.fr/download/CP210x_VCP_Windows -O $CP2102_ZIP
-  unzip CP210x_VCP_Windows.zip
-  cd ..
+  wget http://gimx.fr/download/CP210x_VCP_Windows -O $CP210X_ZIP
+  mkdir -p CP210x_VCP_Windows
+  cd CP210x_VCP_Windows
+  unzip ../CP210x_VCP_Windows.zip
+  cd ../..
 fi
 
 if test -f /c/Program\ Files\ \(x86\)/Inno\ Setup\ 5/ISCC.exe

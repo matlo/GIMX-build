@@ -13,10 +13,11 @@
 #define MyApp3 "gimx-fpsconfig"
 #define MyAppExeName3 "gimx-fpsconfig.exe"
 
-#define UsbdkVersion "1.0.7"
-#define UsbdkAppId "{E8206CD6-89B4-4CDF-8A1A-274552D1EB3A}"
+#define UsbdkVersion "1.0.12"
+#define UsbdkAppIdx64 "{2D9B7372-C3A9-4C50-9149-058EF0CF512B}"
+#define UsbdkAppIdx86 "{296A4498-8BC3-4212-8E37-6B8ADFF9399B}"
 
-#define SilabsCP210xAppId "B97004A400E30DCF940971EFA7A0C13C6B0A4B66"
+#define SilabsCP210xAppId "F189C013BFD9D0C73BEC97AD2CFF0CF7CAD1E670"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
@@ -68,8 +69,8 @@ Name: "{group}\{#MyApp3}"; Filename: "{app}\{#MyAppExeName3}"
 Name: "{commondesktop}\{#MyApp3}"; Filename: "{app}\{#MyAppExeName3}"; Tasks: desktopicon
 
 [Run]
-Filename: "msiexec.exe"; Parameters: "/i ""{app}\tools\usbdk\UsbDk_{#UsbdkVersion}_x64.msi"" /qn"; Description: "Install USBDK (required for most gaming consoles)"; Check: IsWin64() and not AppInstalled(True, False, '{#UsbdkAppId}') ; Flags: runascurrentuser postinstall skipifsilent
-Filename: "msiexec.exe"; Parameters: "/i ""{app}\tools\usbdk\UsbDk_{#UsbdkVersion}_x86.msi"" /qn"; Description: "Install USBDK (required for most gaming consoles)"; Check: not IsWin64() and not AppInstalled(True, False, '{#UsbdkAppId}') ; Flags: runascurrentuser postinstall skipifsilent
+Filename: "msiexec.exe"; Parameters: "/i ""{app}\tools\usbdk\UsbDk_{#UsbdkVersion}_x64.msi"" /qn"; Description: "Install USBDK (required for most gaming consoles)"; Check: IsWin64() and not AppInstalled(True, False, '{#UsbdkAppIdx64}') ; Flags: runascurrentuser postinstall skipifsilent
+Filename: "msiexec.exe"; Parameters: "/i ""{app}\tools\usbdk\UsbDk_{#UsbdkVersion}_x86.msi"" /qn"; Description: "Install USBDK (required for most gaming consoles)"; Check: not IsWin64() and not AppInstalled(True, False, '{#UsbdkAppIdx86}') ; Flags: runascurrentuser postinstall skipifsilent
 Filename: "{app}\tools\CP210x_VCP_Windows\CP210xVCPInstaller_x64.exe"; Description: "{cm:LaunchProgram,CP210x driver installer}"; Check: IsWin64() and not AppInstalled(True, False, '{#SilabsCP210xAppId}') ; Flags: runascurrentuser postinstall skipifsilent
 Filename: "{app}\tools\CP210x_VCP_Windows\CP210xVCPInstaller_x86.exe"; Description: "{cm:LaunchProgram,CP210x driver installer}"; Check: not IsWin64() and not AppInstalled(True, False, '{#SilabsCP210xAppId}') ; Flags: runascurrentuser postinstall skipifsilent
 Filename: "{app}\{#MyAppExeName1}"; Description: "{cm:LaunchProgram,{#StringChange(MyApp1, "&", "&&")}}"; Flags: nowait postinstall skipifsilent
