@@ -11,7 +11,7 @@ else
   ARCH=x86_64
 fi
 
-pacman --noconfirm -S mingw-w64-$ARCH-gcc mingw-w64-$ARCH-libxml2 mingw-w64-$ARCH-curl mingw-w64-$ARCH-SDL2
+pacman --noconfirm -S mingw-w64-$ARCH-pkg-config mingw-w64-$ARCH-gcc mingw-w64-$ARCH-libxml2 mingw-w64-$ARCH-curl mingw-w64-$ARCH-SDL2
 
 mkdir gimx-install
 cd gimx-install
