@@ -16,8 +16,8 @@ pacman --noconfirm -S \
   mingw-w64-$ARCH-gcc \
   mingw-w64-$ARCH-libxml2 \
   mingw-w64-$ARCH-curl \
-  mingw-w64-$ARCH-SDL2 \
-  mingw-w64-$ARCH-wxWidgets
+  mingw-w64-$ARCH-SDL2
+#  mingw-w64-$ARCH-wxWidgets
 
 mkdir gimx-install
 cd gimx-install
