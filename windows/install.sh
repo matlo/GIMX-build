@@ -2,7 +2,7 @@
 
 PACKAGE_RELEASE="3.0"
 
-pacman --noconfirm -S wget man git make diffutils patch p7zip unzip
+pacman --needed --noconfirm -S wget man git make diffutils patch p7zip unzip
 
 if test "$MSYSTEM" = "MINGW32"
 then
@@ -11,7 +11,7 @@ else
   ARCH=x86_64
 fi
 
-pacman --noconfirm -S \
+pacman --needed --noconfirm -S \
   mingw-w64-$ARCH-pkg-config \
   mingw-w64-$ARCH-gcc \
   mingw-w64-$ARCH-libxml2 \
@@ -27,7 +27,7 @@ wget https://github.com/matlo/GIMX-tools/releases/download/${PACKAGE_RELEASE}/mi
 
 wget https://github.com/matlo/GIMX-tools/releases/download/4.0/mingw-w64-$ARCH-wxWidgets-3.0.2-12-any.pkg.tar.xz
 
-pacman --noconfirm -U *.pkg.tar.xz
+pacman --needed --noconfirm -U *.pkg.tar.xz
 
 cd ..
 rm -rf gimx-install
