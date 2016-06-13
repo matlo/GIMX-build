@@ -2,14 +2,14 @@
 
 PACKAGE_RELEASE="3.0"
 
-pacman --needed --noconfirm -S wget man git make diffutils patch p7zip unzip
-
 if test "$MSYSTEM" = "MINGW32"
 then
   ARCH=i686
 else
   ARCH=x86_64
 fi
+
+pacman --needed --noconfirm -S wget man git make diffutils patch p7zip unzip mingw-w64-$ARCH-toolchain
 
 pacman --needed --noconfirm -S \
   mingw-w64-$ARCH-pkg-config \
