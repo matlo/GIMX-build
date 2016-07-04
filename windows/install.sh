@@ -12,6 +12,7 @@ fi
 pacman --needed --noconfirm -S wget man git make diffutils patch p7zip unzip mingw-w64-$ARCH-toolchain
 
 pacman --needed --noconfirm -S \
+  mingw-w64-$ARCH-ntldd \
   mingw-w64-$ARCH-pkg-config \
   mingw-w64-$ARCH-gcc \
   mingw-w64-$ARCH-libxml2 \
