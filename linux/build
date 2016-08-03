@@ -3,7 +3,7 @@
 #don't forget to add universe to ~/.pbuilderrc
 
 #uncomment in a new build environment
-#sudo apt-get install gdebi devscripts pbuilder debhelper curl
+#sudo apt-get install gdebi devscripts pbuilder debhelper curl build-essential
 
 PACKAGE="gimx"
 VERSION=`cat version`
