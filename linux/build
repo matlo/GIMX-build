@@ -53,7 +53,7 @@ echo $NEW_TARGET_ARCH > architecture
 
 if [ "$NEW_TARGET_ARCH" != "$TARGET_ARCH" ]
 then
-  sudo pbuilder create --architecture $NEW_TARGET_ARCH
+  sudo pbuilder --create --architecture $NEW_TARGET_ARCH
 fi
 
 rm -rf $PACKAGE*
@@ -91,6 +91,6 @@ fi
 
 debuild --no-tgz-check -us -uc
 
-sudo pbuilder build ../$PACKAGE\_$NEW_VERSION-1.dsc --architecture $NEW_TARGET_ARCH
+sudo pbuilder --build  --architecture $NEW_TARGET_ARCH ../$PACKAGE\_$NEW_VERSION-1.dsc
 
 cp /var/cache/pbuilder/result/$PACKAGE\_$NEW_VERSION-1_*.deb ..

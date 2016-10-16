@@ -11,6 +11,6 @@ Provides: sixemu
 Conflicts: sixemu
 Replaces: sixemu
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, libbluetooth3, libxml2, libwxgtk3.0-0, libusb-1.0-0, libncursesw5, libmhash2, libcurl3-gnutls, xterm, xdg-utils, libx11-6, libxi6, gksu, bluez
+Depends: ${shlibs:Depends}, ${misc:Depends}, libbluetooth3, libxml2, libwxgtk3.0-0v5, libusb-1.0-0, libncursesw5, libmhash2, libcurl3-gnutls, xterm, xdg-utils, libx11-6, libxi6, gksu, bluez
 Description: Game Input MultipleXer
  This software emulates a game controller and allows to control a game console with mice, keyboards, and joysticks.
