@@ -77,6 +77,11 @@ sed -i "s/#DATE#/$DATE/" debian/changelog
 sed -i "s/#DATE#/$DATE/" debian/copyright
 sed -i "s/#YEAR#/$YEAR/" debian/copyright
 
+if [ "${DIST}" == "jessie" ]
+then
+  sed -i "s/libwxgtk3.0-0v5/libwxgtk3.0-0/" debian/control
+fi
+
 if [ -n ${VERSION} ]
 then
   MAJOR=$(echo ${VERSION} | awk -F"." '{print $1}')
