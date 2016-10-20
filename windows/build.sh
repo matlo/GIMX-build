@@ -67,9 +67,9 @@ USBDK_PRODUCT_CODE_X86="{FF47D015-2348-4B95-B56B-8286843878C4}"
 USBDK_MSI_X64="UsbDk_${USBDK_VERSION}_x64.msi"
 USBDK_MSI_X86="UsbDk_${USBDK_VERSION}_x86.msi"
 
-sed -i "s/#define[ ]*UsbdkVersion[ ]*\"[0-9]*.[0-9]*.[0-9]*\"/#define UsbdkVersion \"${USBDK_VERSION}\"/" inno.iss
-sed -i "s/#define[ ]*UsbdkAppIdx64[ ]*\"{.*}\"/#define UsbdkAppIdx64 \"${USBDK_PRODUCT_CODE_X64}\"/" inno.iss
-sed -i "s/#define[ ]*UsbdkAppIdx86[ ]*\"{.*}\"/#define UsbdkAppIdx86 \"${USBDK_PRODUCT_CODE_X86}\"/" inno.iss
+sed -i "s/#define[ ]*UsbdkVersion[ ]*\".*\"/#define UsbdkVersion \"${USBDK_VERSION}\"/" inno.iss
+sed -i "s/#define[ ]*UsbdkAppIdx64[ ]*\".*\"/#define UsbdkAppIdx64 \"${USBDK_PRODUCT_CODE_X64}\"/" inno.iss
+sed -i "s/#define[ ]*UsbdkAppIdx86[ ]*\".*\"/#define UsbdkAppIdx86 \"${USBDK_PRODUCT_CODE_X86}\"/" inno.iss
 
 if [ "$MSYSTEM" == "MINGW64" ]
 then
@@ -95,7 +95,7 @@ fi
 CP210X_ZIP="CP210x_VCP_Windows.zip"
 
 CP210X_PRODUCT_CODE="9437A0D535B29915072FCF153C7CA9B5FD547A24"
-sed -i "s/#define[ ]*SilabsCP210xAppId[ ]*\"{.*}\"/#define SilabsCP210xAppId \"${CP210X_PRODUCT_CODE}\"/" inno.iss
+sed -i "s/#define[ ]*SilabsCP210xAppId[ ]*\".*\"/#define SilabsCP210xAppId \"${CP210X_PRODUCT_CODE}\"/" inno.iss
 
 if ! test -f $TOOLS_DIR/$CP210X_ZIP
 then
