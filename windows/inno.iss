@@ -68,6 +68,19 @@ Name: "{commondesktop}\{#MyApp2}"; Filename: "{app}\{#MyAppExeName2}"; Tasks: de
 Name: "{group}\{#MyApp3}"; Filename: "{app}\{#MyAppExeName3}"
 Name: "{commondesktop}\{#MyApp3}"; Filename: "{app}\{#MyAppExeName3}"; Tasks: desktopicon
 
+[Registry]
+Root: HKCU; Subkey: "System\CurrentControlSet\Control\MediaProperties\PrivateProperties\Joystick\OEM\VID_046D&PID_C202" ValueType: string; ValueName: "OEMName"; ValueData: "Logitech WingMan Formula (Yellow) (USB)"
+Root: HKCU; Subkey: "System\CurrentControlSet\Control\MediaProperties\PrivateProperties\Joystick\OEM\VID_046D&PID_C20E" ValueType: string; ValueName: "OEMName"; ValueData: "Logitech WingMan Formula GP"
+Root: HKCU; Subkey: "System\CurrentControlSet\Control\MediaProperties\PrivateProperties\Joystick\OEM\VID_046D&PID_C293" ValueType: string; ValueName: "OEMName"; ValueData: "Logitech WingMan Formula Force GP USB"
+Root: HKCU; Subkey: "System\CurrentControlSet\Control\MediaProperties\PrivateProperties\Joystick\OEM\VID_046D&PID_C294" ValueType: string; ValueName: "OEMName"; ValueData: "Logitech Driving Force USB"
+Root: HKCU; Subkey: "System\CurrentControlSet\Control\MediaProperties\PrivateProperties\Joystick\OEM\VID_046D&PID_C295" ValueType: string; ValueName: "OEMName"; ValueData: "Logitech MOMO Force USB"
+Root: HKCU; Subkey: "System\CurrentControlSet\Control\MediaProperties\PrivateProperties\Joystick\OEM\VID_046D&PID_C298" ValueType: string; ValueName: "OEMName"; ValueData: "Logitech Driving Force Pro USB"
+Root: HKCU; Subkey: "System\CurrentControlSet\Control\MediaProperties\PrivateProperties\Joystick\OEM\VID_046D&PID_C299" ValueType: string; ValueName: "OEMName"; ValueData: "Logitech G25 Racing Wheel USB"
+Root: HKCU; Subkey: "System\CurrentControlSet\Control\MediaProperties\PrivateProperties\Joystick\OEM\VID_046D&PID_C29A" ValueType: string; ValueName: "OEMName"; ValueData: "Logitech Driving Force GT USB"
+Root: HKCU; Subkey: "System\CurrentControlSet\Control\MediaProperties\PrivateProperties\Joystick\OEM\VID_046D&PID_C29B" ValueType: string; ValueName: "OEMName"; ValueData: "Logitech G27 Racing Wheel USB"
+Root: HKCU; Subkey: "System\CurrentControlSet\Control\MediaProperties\PrivateProperties\Joystick\OEM\VID_046D&PID_CA03" ValueType: string; ValueName: "OEMName"; ValueData: "Logitech MOMO Racing USB"
+Root: HKCU; Subkey: "System\CurrentControlSet\Control\MediaProperties\PrivateProperties\Joystick\OEM\VID_046D&PID_CA04" ValueType: string; ValueName: "OEMName"; ValueData: "Logitech Racing Wheel USB"
+
 [Run]
 Filename: "msiexec.exe"; Parameters: "/i ""{app}\tools\usbdk\UsbDk_{#UsbdkVersion}_x64.msi"" /qn"; Description: "Install USBDK (required for most gaming consoles)"; Check: IsWin64() and not AppInstalled(True, False, '{#UsbdkAppIdx64}') ; Flags: runascurrentuser postinstall skipifsilent
 Filename: "msiexec.exe"; Parameters: "/i ""{app}\tools\usbdk\UsbDk_{#UsbdkVersion}_x86.msi"" /qn"; Description: "Install USBDK (required for most gaming consoles)"; Check: not IsWin64() and not AppInstalled(True, False, '{#UsbdkAppIdx86}') ; Flags: runascurrentuser postinstall skipifsilent
