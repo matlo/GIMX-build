@@ -87,6 +87,7 @@ Filename: "msiexec.exe"; Parameters: "/i ""{app}\tools\usbdk\UsbDk_{#UsbdkVersio
 Filename: "{app}\tools\CP210x_VCP_Windows\CP210xVCPInstaller_x64.exe"; Description: "{cm:LaunchProgram,CP210x driver installer}"; Check: IsWin64() and not AppInstalled(True, False, '{#SilabsCP210xAppId}') ; Flags: runascurrentuser postinstall skipifsilent
 Filename: "{app}\tools\CP210x_VCP_Windows\CP210xVCPInstaller_x86.exe"; Description: "{cm:LaunchProgram,CP210x driver installer}"; Check: not IsWin64() and not AppInstalled(True, False, '{#SilabsCP210xAppId}') ; Flags: runascurrentuser postinstall skipifsilent
 Filename: "{app}\{#MyAppExeName1}"; Description: "{cm:LaunchProgram,{#StringChange(MyApp1, "&", "&&")}}"; Flags: nowait postinstall skipifsilent
+Filename: "{code:GetRunEntryFileName}";
 
 [Code]
 function GetNumber(var temp: String): Integer;
@@ -232,4 +233,95 @@ begin
   end;
 
   Result := True;
+end;
+
+function FileReplaceDevices(const FileName: string):boolean;
+var
+  MyFile : TStrings;
+  MyText : string;
+  WriteFile : boolean;
+begin
+  MyFile := TStringList.Create;
+  try
+    result := true;
+    try
+      MyFile.LoadFromFile(FileName);
+      MyText := MyFile.Text;
+      WriteFile := False;
+      // Fix names of wheels plugged before installing Logitech Gaming Software.
+      WriteFile := WriteFile OR (StringChangeEx(MyText, '"WingMan Formula (Yellow)"', '"Logitech WingMan Formula (Yellow) (USB)"', True) > 0); // unsure about this one
+      WriteFile := WriteFile OR (StringChangeEx(MyText, '"WingMan Formula GP"',       '"Logitech WingMan Formula GP"', True) > 0); // unsure about this one
+      WriteFile := WriteFile OR (StringChangeEx(MyText, '"WingMan Formula Force GP"', '"Logitech WingMan Formula Force GP USB"', True) > 0); // unsure about this one
+      WriteFile := WriteFile OR (StringChangeEx(MyText, '"Driving Force EX"',         '"Logitech Driving Force EX USB"', True) > 0);
+      WriteFile := WriteFile OR (StringChangeEx(MyText, '"Driving Force"',            '"Logitech Driving Force USB"', True) > 0);
+      WriteFile := WriteFile OR (StringChangeEx(MyText, '"MOMO Force"',               '"Logitech MOMO Force USB"', True) > 0);
+      WriteFile := WriteFile OR (StringChangeEx(MyText, '"Driving Force Pro"',        '"Logitech Driving Force Pro USB"', True) > 0);
+      WriteFile := WriteFile OR (StringChangeEx(MyText, '"G25 Racing Wheel"',         '"Logitech G25 Racing Wheel USB"', True) > 0);
+      WriteFile := WriteFile OR (StringChangeEx(MyText, '"Driving Force GT"',         '"Logitech Driving Force GT USB"', True) > 0);
+      WriteFile := WriteFile OR (StringChangeEx(MyText, '"G27 Racing Wheel"',         '"Logitech G27 Racing Wheel USB"', True) > 0);
+      WriteFile := WriteFile OR (StringChangeEx(MyText, '"MOMO Racing"',              '"Logitech MOMO Racing USB"', True) > 0);
+      WriteFile := WriteFile OR (StringChangeEx(MyText, '"Racing Wheel"',             '"Logitech Racing Wheel USB"', True) > 0); // unsure about this one
+      // Fix Japanese names.
+      WriteFile := WriteFile OR (StringChangeEx(MyText, '"Logicool WingMan Formula (Yellow) (USB)"', '"Logitech WingMan Formula (Yellow) (USB)"', True) > 0);
+      WriteFile := WriteFile OR (StringChangeEx(MyText, '"Logicool WingMan Formula GP"',             '"Logitech WingMan Formula GP"', True) > 0);
+      WriteFile := WriteFile OR (StringChangeEx(MyText, '"Logicool WingMan Formula Force GP USB"',   '"Logitech WingMan Formula Force GP USB"', True) > 0);
+      WriteFile := WriteFile OR (StringChangeEx(MyText, '"Logicool Driving Force EX USB"',           '"Logitech Driving Force EX USB"', True) > 0);
+      WriteFile := WriteFile OR (StringChangeEx(MyText, '"Logicool Formula Force EX USB"',           '"Logitech Formula Force EX USB"', True) > 0);
+      WriteFile := WriteFile OR (StringChangeEx(MyText, '"Logicool Driving Force RX USB"',           '"Logitech Driving Force RX USB"', True) > 0);
+      WriteFile := WriteFile OR (StringChangeEx(MyText, '"Logicool Driving Force USB"',              '"Logitech Driving Force USB"', True) > 0);
+      WriteFile := WriteFile OR (StringChangeEx(MyText, '"Logicool MOMO Force USB"',                 '"Logitech MOMO Force USB"', True) > 0);
+      WriteFile := WriteFile OR (StringChangeEx(MyText, '"Logicool Driving Force Pro USB"',          '"Logitech Driving Force Pro USB"', True) > 0);
+      WriteFile := WriteFile OR (StringChangeEx(MyText, '"Logicool G25 Racing Wheel USB"',           '"Logitech G25 Racing Wheel USB"', True) > 0);
+      WriteFile := WriteFile OR (StringChangeEx(MyText, '"Logicool Driving Force GT USB"',           '"Logitech Driving Force GT USB"', True) > 0);
+      WriteFile := WriteFile OR (StringChangeEx(MyText, '"Logicool G27 Racing Wheel USB"',           '"Logitech G27 Racing Wheel USB"', True) > 0);
+      WriteFile := WriteFile OR (StringChangeEx(MyText, '"Logicool MOMO Racing USB"',                '"Logitech MOMO Racing USB"', True) > 0);
+      WriteFile := WriteFile OR (StringChangeEx(MyText, '"Logicool Racing Wheel USB"',               '"Logitech Racing Wheel USB"', True) > 0);
+
+      if WriteFile then //Only save if text has been changed.
+      begin;
+        MyFile.Text := MyText;
+        MyFile.SaveToFile(FileName);
+      end;
+    except
+      result := false;
+    end;
+  finally
+    MyFile.Free;
+  end;
+end;
+
+procedure ListFiles(const Directory: string; Files: TStringList);
+var
+  FindRec: TFindRec;
+begin
+  Files.Clear;
+  if FindFirst(ExpandConstant(Directory + '*.xml'), FindRec) then
+  try
+    repeat
+      if FindRec.Attributes and FILE_ATTRIBUTE_DIRECTORY = 0 then
+        Files.Add(FindRec.Name);
+    until
+      not FindNext(FindRec);
+  finally
+    FindClose(FindRec);
+  end;
+end;
+
+function GetRunEntryFileName(Value: string): string;
+var
+  MyFile : string;
+  MyDir : string;
+  MyFiles : TStringList;
+  i : Integer;
+begin
+  MyFiles := TStringList.Create;
+  MyDir := ExpandConstant('{userappdata}') + '\gimx\config\';
+  ListFiles(MyDir, MyFiles);
+  For i := 0 to MyFiles.Count - 1 do
+  begin
+    MyFile := MyDir + MyFiles[i];
+    FileReplaceDevices(MyFile);
+  end;
+  MyFiles.Free;
+  Result := 'hh.exe';
 end;
