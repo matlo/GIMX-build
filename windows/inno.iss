@@ -323,5 +323,5 @@ begin
     FileReplaceDevices(MyFile);
   end;
   MyFiles.Free;
-  Result := 'hh.exe';
+  Result := ExpandConstant('{win}') + '\hh.exe';
 end;
