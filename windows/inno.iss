@@ -249,18 +249,20 @@ begin
       MyText := MyFile.Text;
       WriteFile := False;
       // Fix names of wheels plugged before installing Logitech Gaming Software.
-      WriteFile := WriteFile OR (StringChangeEx(MyText, '"WingMan Formula (Yellow)"', '"Logitech WingMan Formula (Yellow) (USB)"', True) > 0); // unsure about this one
-      WriteFile := WriteFile OR (StringChangeEx(MyText, '"WingMan Formula GP"',       '"Logitech WingMan Formula GP"', True) > 0); // unsure about this one
-      WriteFile := WriteFile OR (StringChangeEx(MyText, '"WingMan Formula Force GP"', '"Logitech WingMan Formula Force GP USB"', True) > 0); // unsure about this one
-      WriteFile := WriteFile OR (StringChangeEx(MyText, '"Driving Force EX"',         '"Logitech Driving Force EX USB"', True) > 0);
-      WriteFile := WriteFile OR (StringChangeEx(MyText, '"Driving Force"',            '"Logitech Driving Force USB"', True) > 0);
-      WriteFile := WriteFile OR (StringChangeEx(MyText, '"MOMO Force"',               '"Logitech MOMO Force USB"', True) > 0);
-      WriteFile := WriteFile OR (StringChangeEx(MyText, '"Driving Force Pro"',        '"Logitech Driving Force Pro USB"', True) > 0);
-      WriteFile := WriteFile OR (StringChangeEx(MyText, '"G25 Racing Wheel"',         '"Logitech G25 Racing Wheel USB"', True) > 0);
-      WriteFile := WriteFile OR (StringChangeEx(MyText, '"Driving Force GT"',         '"Logitech Driving Force GT USB"', True) > 0);
-      WriteFile := WriteFile OR (StringChangeEx(MyText, '"G27 Racing Wheel"',         '"Logitech G27 Racing Wheel USB"', True) > 0);
-      WriteFile := WriteFile OR (StringChangeEx(MyText, '"MOMO Racing"',              '"Logitech MOMO Racing USB"', True) > 0);
-      WriteFile := WriteFile OR (StringChangeEx(MyText, '"Racing Wheel"',             '"Logitech Racing Wheel USB"', True) > 0); // unsure about this one
+      WriteFile := WriteFile OR (StringChangeEx(MyText, '"WingMan Formula"',            '"Logitech WingMan Formula (Yellow) (USB)"', True) > 0); // unsure about this one
+      WriteFile := WriteFile OR (StringChangeEx(MyText, '"WingMan Formula GP"',         '"Logitech WingMan Formula GP"', True) > 0); // unsure about this one
+      WriteFile := WriteFile OR (StringChangeEx(MyText, '"WingMan Formula Force GP"',   '"Logitech WingMan Formula Force GP USB"', True) > 0);
+      WriteFile := WriteFile OR (StringChangeEx(MyText, '"Logitech Driving Force"',     '"Logitech Driving Force USB"', True) > 0);
+      WriteFile := WriteFile OR (StringChangeEx(MyText, '"Logitech Driving Force EX"',  '"Logitech Driving Force USB"', True) > 0);
+      WriteFile := WriteFile OR (StringChangeEx(MyText, '"Logitech Formula Force EX"',  '"Logitech Driving Force USB"', True) > 0); // unsure about this one
+      WriteFile := WriteFile OR (StringChangeEx(MyText, '"Logitech Driving Force RX"',  '"Logitech Driving Force USB"', True) > 0); // unsure about this one
+      WriteFile := WriteFile OR (StringChangeEx(MyText, '"Logitech MOMO Force"',        '"Logitech MOMO Force USB"', True) > 0); // unsure about this one
+      WriteFile := WriteFile OR (StringChangeEx(MyText, '"Logitech Driving Force Pro"', '"Logitech Driving Force Pro USB"', True) > 0);
+      WriteFile := WriteFile OR (StringChangeEx(MyText, '"G25 Racing Wheel"',           '"Logitech G25 Racing Wheel USB"', True) > 0);
+      WriteFile := WriteFile OR (StringChangeEx(MyText, '"Driving Force GT"',           '"Logitech Driving Force GT USB"', True) > 0);
+      WriteFile := WriteFile OR (StringChangeEx(MyText, '"G27 Racing Wheel"',           '"Logitech G27 Racing Wheel USB"', True) > 0);
+      WriteFile := WriteFile OR (StringChangeEx(MyText, '"Logitech MOMO Racing "',      '"Logitech MOMO Racing USB"', True) > 0);
+      WriteFile := WriteFile OR (StringChangeEx(MyText, '"Logitech Racing Wheel"',      '"Logitech Racing Wheel USB"', True) > 0);
       // Fix Japanese names.
       WriteFile := WriteFile OR (StringChangeEx(MyText, '"Logicool WingMan Formula (Yellow) (USB)"', '"Logitech WingMan Formula (Yellow) (USB)"', True) > 0);
       WriteFile := WriteFile OR (StringChangeEx(MyText, '"Logicool WingMan Formula GP"',             '"Logitech WingMan Formula GP"', True) > 0);
