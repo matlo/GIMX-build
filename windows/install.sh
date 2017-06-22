@@ -27,6 +27,7 @@ cd gimx-install
 wget https://github.com/matlo/GIMX-tools/releases/download/${PACKAGE_RELEASE}/mingw-w64-$ARCH-pdcurses-3.4.0-1-any.pkg.tar.xz
 wget https://github.com/matlo/GIMX-tools/releases/download/${PACKAGE_RELEASE}/mingw-w64-$ARCH-libusb-usbdk-0.0.0-1-any.pkg.tar.xz
 wget https://github.com/matlo/GIMX-tools/releases/download/${PACKAGE_RELEASE}/mingw-w64-$ARCH-SDL2-2.0.4-1-any.pkg.tar.xz
+wget https://github.com/matlo/GIMX-tools/releases/download/${PACKAGE_RELEASE}/mingw-w64-$ARCH-avrdude-6.3-1-any.pkg.tar.xz
 
 pacman --needed --noconfirm -U *.pkg.tar.xz
 
