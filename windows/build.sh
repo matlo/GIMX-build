@@ -55,27 +55,17 @@ sed -i "s/#define[ ]*MyAppVersion[ ]*\"[0-9]*.[0-9]*\"/#define MyAppVersion \"$M
 
 make -C GIMX -j $CPU install
 
-INNO_OPTIONS=""
-
 TOOLS_DIR="tools"
+
+#
+# UsbDk driver
+#
 
 TOOLS_USBDK_DIR="$TOOLS_DIR/usbdk"
 
-USBDK_VERSION="1.0.15"
-USBDK_PRODUCT_CODE_X64="{73BF404E-1EA1-4476-8E8C-A51440E31D9D}"
-USBDK_PRODUCT_CODE_X86="{FF47D015-2348-4B95-B56B-8286843878C4}"
+USBDK_VERSION="1.0.19"
 USBDK_MSI_X64="UsbDk_${USBDK_VERSION}_x64.msi"
 USBDK_MSI_X86="UsbDk_${USBDK_VERSION}_x86.msi"
-
-sed -i "s/#define[ ]*UsbdkVersion[ ]*\".*\"/#define UsbdkVersion \"${USBDK_VERSION}\"/" inno.iss
-sed -i "s/#define[ ]*UsbdkAppIdx64[ ]*\".*\"/#define UsbdkAppIdx64 \"${USBDK_PRODUCT_CODE_X64}\"/" inno.iss
-sed -i "s/#define[ ]*UsbdkAppIdx86[ ]*\".*\"/#define UsbdkAppIdx86 \"${USBDK_PRODUCT_CODE_X86}\"/" inno.iss
-
-if [ "$MSYSTEM" == "MINGW64" ]
-then
-  export MSYS2_ARG_CONV_EXCL="/dW64"
-  INNO_OPTIONS+="/dW64"
-fi
 
 mkdir -p $TOOLS_USBDK_DIR
 
@@ -92,9 +82,20 @@ then
   fi
 fi
 
+USBDK_PRODUCT_CODE_X64="{$(strings $TOOLS_USBDK_DIR/$USBDK_MSI_X64 | grep ProductCode | sed 's/.*ProductCode{//g' | sed 's/}.*//g')}"
+USBDK_PRODUCT_CODE_X86="{$(strings $TOOLS_USBDK_DIR/$USBDK_MSI_X86 | grep ProductCode | sed 's/.*ProductCode{//g' | sed 's/}.*//g')}"
+
+sed -i "s/#define[ ]*UsbdkVersion[ ]*\".*\"/#define UsbdkVersion \"${USBDK_VERSION}\"/" inno.iss
+sed -i "s/#define[ ]*UsbdkAppIdx64[ ]*\".*\"/#define UsbdkAppIdx64 \"${USBDK_PRODUCT_CODE_X64}\"/" inno.iss
+sed -i "s/#define[ ]*UsbdkAppIdx86[ ]*\".*\"/#define UsbdkAppIdx86 \"${USBDK_PRODUCT_CODE_X86}\"/" inno.iss
+
+#
+# cp210x driver
+#
+
 CP210X_ZIP="CP210x_VCP_Windows.zip"
 
-CP210X_PRODUCT_CODE="9437A0D535B29915072FCF153C7CA9B5FD547A24"
+CP210X_PRODUCT_CODE="9E2C239D42290B984A9E2B350A67AF8BC8BD11B9"
 sed -i "s/#define[ ]*SilabsCP210xAppId[ ]*\".*\"/#define SilabsCP210xAppId \"${CP210X_PRODUCT_CODE}\"/" inno.iss
 
 if ! test -f $TOOLS_DIR/$CP210X_ZIP
@@ -105,6 +106,14 @@ then
   cd CP210x_VCP_Windows
   unzip ../CP210x_VCP_Windows.zip
   cd ../..
+fi
+
+INNO_OPTIONS=""
+
+if [ "$MSYSTEM" == "MINGW64" ]
+then
+  export MSYS2_ARG_CONV_EXCL="/dW64"
+  INNO_OPTIONS+="/dW64"
 fi
 
 if test -f /c/Program\ Files\ \(x86\)/Inno\ Setup\ 5/ISCC.exe
