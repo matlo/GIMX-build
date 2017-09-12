@@ -181,6 +181,31 @@ begin
   Result := RegKeyExists(GetHKLM(isNative), GetUninstallRegKey(appId, isInno));
 end;
 
+function IsWindowsVersion(Major, Minor: Integer): Boolean;
+var
+  Version: TWindowsVersion;
+begin
+  GetWindowsVersionEx(Version);
+  Result := (Version.Major = Major) and (Version.Minor = Minor);
+end;
+
+
+function IsHotfixInstalled(hotfix: string): Boolean;
+var
+  WbemLocator: Variant;
+  WbemServices: Variant;
+  WQLQuery: string;
+  WbemObjectSet: Variant;
+begin
+  WbemLocator := CreateOleObject('WbemScripting.SWbemLocator');
+  WbemServices := WbemLocator.ConnectServer('', 'root\CIMV2');
+
+  WQLQuery := 'select * from Win32_QuickFixEngineering where HotFixID = ''' + hotfix + '''';
+
+  WbemObjectSet := WbemServices.ExecQuery(WQLQuery);
+  Result := (not VarIsNull(WbemObjectSet)) and (WbemObjectSet.Count > 0);
+end;
+
 function InitializeSetup(): Boolean;
 var
   oldVersion: String;
@@ -191,6 +216,14 @@ var
   appName: String;
   appVersion: String;
 begin
+
+  if IsWindowsVersion(6, 1) and not IsHotfixInstalled('KB3033929') then
+  begin
+    MsgBox('KB3033929 is not installed.'#13#10'Make sure to apply all Windows updates and retry.', mbCriticalError, MB_OK);
+    Result := False;
+    Exit;
+  end;
+
   appId := '{#MyAppId}';
   appName := '{#MyAppName}';
   appVersion := '{#MyAppVersion}'
