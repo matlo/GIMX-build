@@ -189,21 +189,31 @@ begin
   Result := (Version.Major = Major) and (Version.Minor = Minor);
 end;
 
-
-function IsHotfixInstalled(hotfix: string): Boolean;
+function IsKB3033929Installed(): Boolean;
 var
-  WbemLocator: Variant;
-  WbemServices: Variant;
-  WQLQuery: string;
-  WbemObjectSet: Variant;
+  File: String;
+  VersionMS, VersionLS: Cardinal;
+  a, b, c, d: word;
+  Version: String;
 begin
-  WbemLocator := CreateOleObject('WbemScripting.SWbemLocator');
-  WbemServices := WbemLocator.ConnectServer('', 'root\CIMV2');
-
-  WQLQuery := 'select * from Win32_QuickFixEngineering where HotFixID = ''' + hotfix + '''';
-
-  WbemObjectSet := WbemServices.ExecQuery(WQLQuery);
-  Result := (not VarIsNull(WbemObjectSet)) and (WbemObjectSet.Count > 0);
+  File := ExpandConstant('{sys}') + '\wintrust.dll';
+  GetVersionNumbers(File, VersionMS, VersionLS);
+  a := word(VersionMS shr 16);
+  b := word(VersionMS and not $ffff0000);
+  c := word(VersionLS shr 16);
+  d := word(VersionLS and not $ffff0000);
+  Version := IntToStr(a) + '.' + IntToStr(b) + '.' + IntToStr(c) + '.' + IntToStr(d);
+  if (CompareVersion(Version, '6.1.7601.18740') >= 0) and (CompareVersion(Version, '6.1.7601.22000') < 0) then
+  begin
+    Result := true;
+    Exit;
+  end;
+  if CompareVersion(Version, '6.1.7601.22947') >= 0 then
+  begin
+    Result := true;
+    Exit;
+  end;
+  Result := false;
 end;
 
 function InitializeSetup(): Boolean;
@@ -217,7 +227,7 @@ var
   appVersion: String;
 begin
 
-  if IsWindowsVersion(6, 1) and not IsHotfixInstalled('KB3033929') then
+  if IsWindowsVersion(6, 1) and not IsKB3033929Installed() then
   begin
     MsgBox('KB3033929 is not installed.'#13#10'Make sure to apply all Windows updates and retry.', mbCriticalError, MB_OK);
     Result := False;
