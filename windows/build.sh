@@ -74,12 +74,9 @@ then
   wget http://www.spice-space.org/download/windows/usbdk/$USBDK_MSI_X64 -O $TOOLS_USBDK_DIR/$USBDK_MSI_X64
 fi
 
-if [ "$MSYSTEM" == "MINGW32" ]
+if ! test -f $TOOLS_USBDK_DIR/$USBDK_MSI_X86
 then
-  if ! test -f $TOOLS_USBDK_DIR/$USBDK_MSI_X86
-  then
-    wget http://www.spice-space.org/download/windows/usbdk/$USBDK_MSI_X86 -O $TOOLS_USBDK_DIR/$USBDK_MSI_X86
-  fi
+  wget http://www.spice-space.org/download/windows/usbdk/$USBDK_MSI_X86 -O $TOOLS_USBDK_DIR/$USBDK_MSI_X86
 fi
 
 USBDK_PRODUCT_CODE_X64="{$(strings $TOOLS_USBDK_DIR/$USBDK_MSI_X64 | grep ProductCode | sed 's/.*ProductCode{//g' | sed 's/}.*//g')}"
