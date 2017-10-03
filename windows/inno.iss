@@ -40,6 +40,7 @@ OutputDir=.
 OutputBaseFilename=gimx-{#MyAppVersion}
 Compression=lzma
 SolidCompression=yes
+LicenseFile=GIMX\LICENSE
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
