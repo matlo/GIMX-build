@@ -105,6 +105,20 @@ then
   cd ../..
 fi
 
+TOOLS_DRIVERS_DIR="$TOOLS_DIR/drivers"
+
+ARDUINO_DRIVER_INF="https://raw.githubusercontent.com/arduino/Arduino/master/build/windows/dist/drivers/arduino.inf"
+ARDUINO_DRIVER_CAT="https://raw.githubusercontent.com/arduino/Arduino/master/build/windows/dist/drivers/arduino.cat"
+
+if ! test -f ${TOOLS_DRIVERS_DIR}/arduino.inf || ! test -f ${TOOLS_DRIVERS_DIR}/arduino.cat
+then
+  mkdir -p ${TOOLS_DRIVERS_DIR}
+  pushd ${TOOLS_DRIVERS_DIR}
+  wget ${ARDUINO_DRIVER_INF} -O arduino.inf
+  wget ${ARDUINO_DRIVER_CAT} -O arduino.cat
+  popd
+fi
+
 INNO_OPTIONS=""
 
 if [ "$MSYSTEM" == "MINGW64" ]

@@ -13,11 +13,11 @@
 #define MyApp3 "gimx-fpsconfig"
 #define MyAppExeName3 "gimx-fpsconfig.exe"
 
-#define UsbdkVersion "1.0.12"
-#define UsbdkAppIdx64 "{2D9B7372-C3A9-4C50-9149-058EF0CF512B}"
-#define UsbdkAppIdx86 "{296A4498-8BC3-4212-8E37-6B8ADFF9399B}"
+#define UsbdkVersion ""
+#define UsbdkAppIdx64 ""
+#define UsbdkAppIdx86 ""
 
-#define SilabsCP210xAppId "F189C013BFD9D0C73BEC97AD2CFF0CF7CAD1E670"
+#define SilabsCP210xAppId ""
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
@@ -50,6 +50,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 
 [Files]
 Source: "GIMX\setup\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "tools\drivers\*"; DestDir: "{app}\tools\drivers\"; Flags: ignoreversion recursesubdirs createallsubdirs
 #ifdef W64
 Source: "tools\CP210x_VCP_Windows\*"; Excludes: "*x86*"; DestDir: "{app}\tools\CP210x_VCP_Windows"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "tools\usbdk\UsbDk_{#UsbdkVersion}_x64.msi"; DestDir: "{app}\tools\usbdk\"; Flags: ignoreversion recursesubdirs createallsubdirs
@@ -89,6 +90,7 @@ Filename: "{app}\tools\CP210x_VCP_Windows\CP210xVCPInstaller_x64.exe"; Descripti
 Filename: "{app}\tools\CP210x_VCP_Windows\CP210xVCPInstaller_x86.exe"; Description: "{cm:LaunchProgram,CP210x driver installer}"; Check: not IsWin64() and not AppInstalled(True, False, '{#SilabsCP210xAppId}') ; Flags: runascurrentuser postinstall skipifsilent
 Filename: "{app}\{#MyAppExeName1}"; Description: "{cm:LaunchProgram,{#StringChange(MyApp1, "&", "&&")}}"; Flags: nowait postinstall skipifsilent
 Filename: "{code:GetRunEntryFileName}"; Flags: skipifdoesntexist
+Filename: "{sys}\pnputil.exe"; Parameters: "-i -a arduino.inf"; WorkingDir: {app}\tools\drivers; Flags: runascurrentuser runhidden
 
 [Code]
 function GetNumber(var temp: String): Integer;
