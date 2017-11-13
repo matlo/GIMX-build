@@ -41,6 +41,7 @@ OutputBaseFilename=gimx-{#MyAppVersion}
 Compression=lzma
 SolidCompression=yes
 LicenseFile=GIMX\LICENSE
+RestartIfNeededByRun=no
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
@@ -90,7 +91,8 @@ Filename: "{app}\tools\CP210x_VCP_Windows\CP210xVCPInstaller_x64.exe"; Parameter
 Filename: "{app}\tools\CP210x_VCP_Windows\CP210xVCPInstaller_x86.exe"; Parameters: "/Q /SE"; Check: not IsWin64() and not AppInstalled(True, False, '{#SilabsCP210xAppId}') ; Flags: runascurrentuser runhidden
 Filename: "{app}\{#MyAppExeName1}"; Description: "{cm:LaunchProgram,{#StringChange(MyApp1, "&", "&&")}}"; Flags: nowait postinstall skipifsilent
 Filename: "{code:GetRunEntryFileName}"; Flags: skipifdoesntexist
-Filename: "{sys}\pnputil.exe"; Parameters: "-i -a arduino.inf"; WorkingDir: {app}\tools\drivers; Flags: runascurrentuser runhidden
+Filename: "{sys}\pnputil.exe"; Parameters: "-i -a arduino.inf"; WorkingDir: {app}\tools\drivers; Check: not IsWin64(); Flags: runascurrentuser runhidden 32bit
+Filename: "{sys}\pnputil.exe"; Parameters: "-i -a arduino.inf"; WorkingDir: {app}\tools\drivers; Check: IsWin64(); Flags: runascurrentuser runhidden 64bit
 
 [Code]
 function GetNumber(var temp: String): Integer;
