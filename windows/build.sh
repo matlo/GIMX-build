@@ -31,7 +31,7 @@ fi
 #checkout & compile GIMX
 echo Clean previous build.
 rm -rf GIMX
-git clone -b $BRANCH --single-branch --depth 1 https://github.com/matlo/GIMX.git
+git clone -b $BRANCH --single-branch --depth 1 --recursive https://github.com/matlo/GIMX.git
 
 MAJOR=$(echo $NEW_VERSION | awk -F"." '{print $1}')
 MINOR=$(echo $NEW_VERSION | awk -F"." '{print $2}')
