@@ -92,7 +92,7 @@ sed -i "s/#define[ ]*UsbdkAppIdx86[ ]*\".*\"/#define UsbdkAppIdx86 \"${USBDK_PRO
 
 CP210X_ZIP="CP210x_VCP_Windows.zip"
 
-CP210X_PRODUCT_CODE="9E2C239D42290B984A9E2B350A67AF8BC8BD11B9"
+CP210X_PRODUCT_CODE="3C57DA61F41601ACF85CC77F740AA00672E0BCD7"
 sed -i "s/#define[ ]*SilabsCP210xAppId[ ]*\".*\"/#define SilabsCP210xAppId \"${CP210X_PRODUCT_CODE}\"/" inno.iss
 
 if ! test -f $TOOLS_DIR/$CP210X_ZIP
