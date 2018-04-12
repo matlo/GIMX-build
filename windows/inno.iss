@@ -84,6 +84,21 @@ Root: HKCU; Subkey: "System\CurrentControlSet\Control\MediaProperties\PrivatePro
 Root: HKCU; Subkey: "System\CurrentControlSet\Control\MediaProperties\PrivateProperties\Joystick\OEM\VID_046D&PID_CA03"; ValueType: string; ValueName: "OEMName"; ValueData: "Logitech MOMO Racing USB"
 Root: HKCU; Subkey: "System\CurrentControlSet\Control\MediaProperties\PrivateProperties\Joystick\OEM\VID_046D&PID_CA04"; ValueType: string; ValueName: "OEMName"; ValueData: "Logitech Racing Wheel USB"
 
+Root: HKCU; Subkey: "Software\Logitech\Gaming Software\GlobalDeviceSettings\WingManFormula2"; ValueType: dword; ValueName: "CombinedPedalsEnable"; ValueData: "0"
+Root: HKCU; Subkey: "Software\Logitech\Gaming Software\GlobalDeviceSettings\WingManFormulaGT"; ValueType: dword; ValueName: "CombinedPedalsEnable"; ValueData: "0"
+Root: HKCU; Subkey: "Software\Logitech\Gaming Software\GlobalDeviceSettings\WingManFormulaGP"; ValueType: dword; ValueName: "CombinedPedalsEnable"; ValueData: "0"
+Root: HKCU; Subkey: "Software\Logitech\Gaming Software\GlobalDeviceSettings\MomoForce"; ValueType: dword; ValueName: "CombinedPedalsEnable"; ValueData: "0"
+Root: HKCU; Subkey: "Software\Logitech\Gaming Software\GlobalDeviceSettings\MOMORacing"; ValueType: dword; ValueName: "CombinedPedalsEnable"; ValueData: "0"
+Root: HKCU; Subkey: "Software\Logitech\Gaming Software\GlobalDeviceSettings\DrivingForce"; ValueType: dword; ValueName: "CombinedPedalsEnable"; ValueData: "0"
+Root: HKCU; Subkey: "Software\Logitech\Gaming Software\GlobalDeviceSettings\RacingWheel"; ValueType: dword; ValueName: "CombinedPedalsEnable"; ValueData: "0"
+Root: HKCU; Subkey: "Software\Logitech\Gaming Software\GlobalDeviceSettings\DrivingForcePro"; ValueType: dword; ValueName: "CombinedPedalsEnable"; ValueData: "0"
+Root: HKCU; Subkey: "Software\Logitech\Gaming Software\GlobalDeviceSettings\DrivingForceEX"; ValueType: dword; ValueName: "CombinedPedalsEnable"; ValueData: "0"
+Root: HKCU; Subkey: "Software\Logitech\Gaming Software\GlobalDeviceSettings\FormulaForceRX"; ValueType: dword; ValueName: "CombinedPedalsEnable"; ValueData: "0"
+Root: HKCU; Subkey: "Software\Logitech\Gaming Software\GlobalDeviceSettings\DrivingForceRX"; ValueType: dword; ValueName: "CombinedPedalsEnable"; ValueData: "0"
+Root: HKCU; Subkey: "Software\Logitech\Gaming Software\GlobalDeviceSettings\G25"; ValueType: dword; ValueName: "CombinedPedalsEnable"; ValueData: "0"
+Root: HKCU; Subkey: "Software\Logitech\Gaming Software\GlobalDeviceSettings\G27"; ValueType: dword; ValueName: "CombinedPedalsEnable"; ValueData: "0"
+Root: HKCU; Subkey: "Software\Logitech\Gaming Software\GlobalDeviceSettings\DrivingForceGT"; ValueType: dword; ValueName: "CombinedPedalsEnable"; ValueData: "0"
+
 [Run]
 Filename: "msiexec.exe"; Parameters: "/i ""{app}\tools\usbdk\UsbDk_{#UsbdkVersion}_x64.msi"" /qn"; Check: IsWin64() and not AppInstalled(True, False, '{#UsbdkAppIdx64}') ; Flags: runascurrentuser runhidden
 Filename: "msiexec.exe"; Parameters: "/i ""{app}\tools\usbdk\UsbDk_{#UsbdkVersion}_x86.msi"" /qn"; Check: not IsWin64() and not AppInstalled(True, False, '{#UsbdkAppIdx86}') ; Flags: runascurrentuser runhidden
@@ -93,6 +108,7 @@ Filename: "{app}\{#MyAppExeName1}"; Description: "{cm:LaunchProgram,{#StringChan
 Filename: "{code:GetRunEntryFileName}"; Flags: skipifdoesntexist
 Filename: "{sys}\pnputil.exe"; Parameters: "-i -a arduino.inf"; WorkingDir: {app}\tools\drivers; Check: not IsWin64(); Flags: runascurrentuser runhidden 32bit
 Filename: "{sys}\pnputil.exe"; Parameters: "-i -a arduino.inf"; WorkingDir: {app}\tools\drivers; Check: IsWin64(); Flags: runascurrentuser runhidden 64bit
+Filename: "{code:RestartLWEMon}"; Flags: skipifdoesntexist
 
 [Code]
 function GetNumber(var temp: String): Integer;
@@ -373,5 +389,14 @@ begin
     FileReplaceDevices(MyFile);
   end;
   MyFiles.Free;
+  Result := ExpandConstant('{win}') + '\hh.exe';
+end;
+
+function RestartLWEMon(Value: string): string;
+var
+  ErrorCode: Integer;
+begin
+  ShellExec('open', 'taskkill.exe', '/f /im LWEMon.exe','', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
+  ShellExec('', ExpandConstant('{pf}') + '\Logitech\Gaming Software\LWEMon.exe', '', '', SW_HIDE, ewNoWait, ErrorCode);
   Result := ExpandConstant('{win}') + '\hh.exe';
 end;
