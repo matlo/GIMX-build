@@ -87,19 +87,41 @@ then
   popd
 fi
 
+add_option() {
+  if test -n "${MSYS2_ARG_CONV_EXCL}"
+  then
+    MSYS2_ARG_CONV_EXCL+=";"
+  fi
+  MSYS2_ARG_CONV_EXCL+="$1"
+  if test -n "${INNO_OPTIONS}"
+  then
+    INNO_OPTIONS+=" "
+  fi
+  INNO_OPTIONS+="$1"
+}
+
+MSYS2_ARG_CONV_EXCL=""
 INNO_OPTIONS=""
+
+add_option "/DMyAppVersion=${VERSION}"
 
 if [ "$MSYSTEM" == "MINGW64" ]
 then
-  export MSYS2_ARG_CONV_EXCL="/dW64"
-  INNO_OPTIONS+="/dW64"
+  add_option "/DW64"
 fi
+
+add_option "/DUsbdkVersion=1.0.19"
+add_option "/DUsbdkAppIdx86=\"{45488D3D-7599-4DEC-95E6-2E5A2DBAF5E8}\""
+add_option "/DUsbdkAppIdx64=\"{446D7CEA-0B07-44FF-8981-37985CA96C41}\""
+add_option "/DSilabsCP210xAppId=\"3C57DA61F41601ACF85CC77F740AA00672E0BCD7\""
+
+export MSYS2_ARG_CONV_EXCL=${MSYS2_ARG_CONV_EXCL}
 
 if test -f /c/Program\ Files\ \(x86\)/Inno\ Setup\ 5/ISCC.exe
 then
-  /c/Program\ Files\ \(x86\)/Inno\ Setup\ 5/ISCC.exe $INNO_OPTIONS inno.iss
+  /c/Program\ Files\ \(x86\)/Inno\ Setup\ 5/ISCC.exe ${INNO_OPTIONS} inno.iss
 else
-  /c/Program\ Files/Inno\ Setup\ 5/ISCC.exe $INNO_OPTIONS inno.iss
+  /c/Program\ Files/Inno\ Setup\ 5/ISCC.exe${INNO_OPTIONS} inno.iss
 fi
 
 if [ "$MSYSTEM" == "MINGW32" ]

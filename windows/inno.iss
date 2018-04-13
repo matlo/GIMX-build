@@ -3,7 +3,6 @@
 
 #define MyAppName "GIMX"
 #define MyAppId "{DCCE138F-C418-464F-BF07-FD69ED63D20E}"
-#define MyAppVersion "0.0"
 #define MyAppPublisher "MatLauLab"
 #define MyAppURL "http://gimx.fr"
 #define MyApp1 "gimx-launcher"
@@ -13,11 +12,21 @@
 #define MyApp3 "gimx-fpsconfig"
 #define MyAppExeName3 "gimx-fpsconfig.exe"
 
-#define UsbdkVersion ""
-#define UsbdkAppIdx64 ""
-#define UsbdkAppIdx86 ""
-
-#define SilabsCP210xAppId ""
+#ifndef MyAppVersion
+#error MyAppVersion is not defined!
+#endif
+#ifndef UsbdkVersion
+#error UsbdkVersion is not defined!
+#endif
+#ifndef UsbdkAppIdx86
+#error UsbdkAppIdx86 is not defined!
+#endif
+#ifndef UsbdkAppIdx64
+#error UsbdkAppIdx64 is not defined!
+#endif
+#ifndef SilabsCP210xAppId
+#error SilabsCP210xAppId is not defined!
+#endif
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
