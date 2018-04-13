@@ -405,7 +405,7 @@ function RestartLWEMon(Value: string): string;
 var
   ErrorCode: Integer;
 begin
-  ShellExec('open', 'taskkill.exe', '/f /im LWEMon.exe','', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
-  ShellExec('', ExpandConstant('{pf}') + '\Logitech\Gaming Software\LWEMon.exe', '', '', SW_HIDE, ewNoWait, ErrorCode);
+  ShellExec('open', 'taskkill.exe', '/f /im LWEMon.exe', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
+  ShellExecAsOriginalUser('', ExpandConstant('{pf}') + '\Logitech\Gaming Software\LWEMon.exe', '/noui', '', SW_HIDE, ewNoWait, ErrorCode);
   Result := ExpandConstant('{win}') + '\hh.exe';
 end;
