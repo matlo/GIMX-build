@@ -121,7 +121,7 @@ if test -f /c/Program\ Files\ \(x86\)/Inno\ Setup\ 5/ISCC.exe
 then
   /c/Program\ Files\ \(x86\)/Inno\ Setup\ 5/ISCC.exe ${INNO_OPTIONS} inno.iss
 else
-  /c/Program\ Files/Inno\ Setup\ 5/ISCC.exe${INNO_OPTIONS} inno.iss
+  /c/Program\ Files/Inno\ Setup\ 5/ISCC.exe ${INNO_OPTIONS} inno.iss
 fi
 
 if [ "$MSYSTEM" == "MINGW32" ]
