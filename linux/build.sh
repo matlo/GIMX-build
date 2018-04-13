@@ -76,23 +76,6 @@ then
   sed -i "s/libwxgtk3.0-0v5/libwxgtk3.0-0/" debian/control
 fi
 
-if [ -n ${VERSION} ]
-then
-  MAJOR=$(echo ${VERSION} | awk -F"." '{print $1}')
-  MINOR=$(echo ${VERSION} | awk -F"." '{print $2}')
-  echo Major release number: $MAJOR
-  echo Minor release number: $MINOR
-  if [ -z $MAJOR ] || [ -z $MINOR ]
-  then
-    echo Invalid release number!
-    exit
-  fi
-
-  sed -i "s/#define[ ]*INFO_VERSION[ ]*\"[0-9]*.[0-9]*\"/#define INFO_VERSION \"$MAJOR.$MINOR\"/" info.h
-  sed -i "s/#define[ ]*INFO_YEAR[ ]*\"2010-[0-9]*\"/#define INFO_YEAR \"2010-$(date '+%Y')\"/" info.h
-fi
-
 OS=${OS} DIST=${DIST} ARCH=${ARCH} pdebuild
 
 cp /var/cache/pbuilder/${OS}-${DIST}-${ARCH}/result/$PACKAGE\_${VERSION}-1_*.deb ../old
-
