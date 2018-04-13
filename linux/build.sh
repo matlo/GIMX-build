@@ -44,12 +44,6 @@ then
   exit
 fi
 
-FIXED=`curl -s -L "https://github.com/matlo/GIMX/issues?labels=GIMX+${VERSION}&state=closed" | grep "        #[0-9][0-9]*" | sed 's/        //g' | sed ':a;N;$!ba;s/\n/ /g'`
-
-echo Fixed: $FIXED
-echo Date: $DATE
-echo Year: $YEAR
-
 rm -rf $PACKAGE*
 
 git clone -b $BRANCH --single-branch --depth 1 --recursive https://github.com/matlo/GIMX.git
@@ -63,6 +57,12 @@ mv GIMX $PACKAGE-${VERSION}
 cp -r debian $PACKAGE-${VERSION}
 
 cd $PACKAGE-${VERSION}
+
+FIXED=`curl -s -L "https://github.com/matlo/GIMX/issues?labels=GIMX+${VERSION}&state=closed" | grep "        #[0-9][0-9]*" | sed 's/        //g' | sed ':a;N;$!ba;s/\n/ /g'`
+
+echo Fixed: $FIXED
+echo Date: $DATE
+echo Year: $YEAR
 
 sed -i "s/#VERSION#/${VERSION}/" debian/changelog
 sed -i "s/#FIXED#/$FIXED/" debian/changelog
