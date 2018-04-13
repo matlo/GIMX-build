@@ -19,8 +19,6 @@ VERSION=$(grep "#define INFO_VERSION " GIMX/info.h)
 VERSION=${VERSION#*\"}
 VERSION=${VERSION%%\"*}
 
-sed -i "s/#define[ ]*MyAppVersion[ ]*\"[0-9]*.[0-9]*\"/#define MyAppVersion \"${VERSION}\"/" inno.iss
-
 make -C GIMX -j $CPU install
 
 TOOLS_DIR="tools"
