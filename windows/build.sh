@@ -1,25 +1,7 @@
 #!/bin/bash
 
-VERSION=`cat version`
 DATE=`date -R`
 BRANCH="master"
-
-echo "Version number? (default: "$VERSION")"
-
-read NEW_VERSION
-
-if [ -z $NEW_VERSION ]
-then
-  NEW_VERSION=$VERSION
-fi
-
-if [ -z $NEW_VERSION ]
-then
-  echo No version specified!
-  exit
-fi
-
-echo $NEW_VERSION > version
 
 if test -f cpu
 then
@@ -33,8 +15,12 @@ echo Clean previous build.
 rm -rf GIMX
 git clone -b $BRANCH --single-branch --depth 1 --recursive https://github.com/matlo/GIMX.git
 
-MAJOR=$(echo $NEW_VERSION | awk -F"." '{print $1}')
-MINOR=$(echo $NEW_VERSION | awk -F"." '{print $2}')
+VERSION=$(grep "#define INFO_VERSION " GIMX/info.h)
+VERSION=${VERSION#*\"}
+VERSION=${VERSION%%\"*}
+
+MAJOR=$(echo $VERSION | awk -F"." '{print $1}')
+MINOR=$(echo $VERSION | awk -F"." '{print $2}')
 echo Major release number: $MAJOR
 echo Minor release number: $MINOR
 if [ -z $MAJOR ] || [ -z $MINOR ]
@@ -136,7 +122,7 @@ fi
 
 if [ "$MSYSTEM" == "MINGW32" ]
 then
-  mv gimx-$NEW_VERSION.exe gimx-$NEW_VERSION-i386.exe
+  mv gimx-$VERSION.exe gimx-$VERSION-i386.exe
 else
-  mv gimx-$NEW_VERSION.exe gimx-$NEW_VERSION-x86_64.exe
+  mv gimx-$VERSION.exe gimx-$VERSION-x86_64.exe
 fi
