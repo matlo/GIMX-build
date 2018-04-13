@@ -110,10 +110,10 @@ then
   add_option "/DW64"
 fi
 
-add_option "/DUsbdkVersion=1.0.19"
-add_option "/DUsbdkAppIdx86=\"{45488D3D-7599-4DEC-95E6-2E5A2DBAF5E8}\""
-add_option "/DUsbdkAppIdx64=\"{446D7CEA-0B07-44FF-8981-37985CA96C41}\""
-add_option "/DSilabsCP210xAppId=\"3C57DA61F41601ACF85CC77F740AA00672E0BCD7\""
+add_option "/DUsbdkVersion=${USBDK_VERSION}"
+add_option "/DUsbdkAppIdx86=\"${USBDK_PRODUCT_CODE_X86}\""
+add_option "/DUsbdkAppIdx64=\"${USBDK_PRODUCT_CODE_X64}\""
+add_option "/DSilabsCP210xAppId=\"${CP210X_PRODUCT_CODE}\""
 
 export MSYS2_ARG_CONV_EXCL=${MSYS2_ARG_CONV_EXCL}
 
