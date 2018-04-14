@@ -406,6 +406,13 @@ var
   ErrorCode: Integer;
 begin
   ShellExec('open', 'taskkill.exe', '/f /im LWEMon.exe', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
-  ShellExecAsOriginalUser('', ExpandConstant('{pf}') + '\Logitech\Gaming Software\LWEMon.exe', '/noui', '', SW_HIDE, ewNoWait, ErrorCode);
+  if IsWin64 then
+  begin
+    ShellExecAsOriginalUser('', ExpandConstant('{pf64}') + '\Logitech\Gaming Software\LWEMon.exe', '/noui', '', SW_HIDE, ewNoWait, ErrorCode);
+  end
+  else
+  begin
+    ShellExecAsOriginalUser('', ExpandConstant('{pf32}') + '\Logitech\Gaming Software\LWEMon.exe', '/noui', '', SW_HIDE, ewNoWait, ErrorCode);
+  end;
   Result := ExpandConstant('{win}') + '\hh.exe';
 end;
