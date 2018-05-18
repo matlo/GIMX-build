@@ -12,3 +12,10 @@ chgrp $INPUT /dev/input/event* /dev/input/js* &> /dev/null
 
 chgrp $INPUT /usr/bin/gimx-config /usr/bin/gimx-fpsconfig /usr/bin/gimx-launcher
 chmod g+s /usr/bin/gimx-config /usr/bin/gimx-fpsconfig /usr/bin/gimx-launcher
+
+mkdir -p /etc/X11/xorg.conf.d
+echo "Section \"InputClass\"
+   Identifier \"Logitech wheels managed by the UHID driver\"
+   MatchUSBID \"046d:c291|046d:c293|046d:c294|046d:c295|046d:c298|046d:c299|046d:c29a|046d:c29b|046d:ca03|046d:c260\"
+   Option     \"Ignore\" \"true\"
+EndSection" > /etc/X11/xorg.conf.d/gimx.conf
