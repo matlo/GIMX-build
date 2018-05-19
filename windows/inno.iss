@@ -416,3 +416,35 @@ begin
   end;
   Result := ExpandConstant('{win}') + '\hh.exe';
 end;
+
+function CreateRestorePoint(sDescription: String): Boolean;
+var
+  ScriptControl:  Variant;
+  oWMI:     	    Variant;
+  ErrCode:  	    Integer;
+begin
+  try
+    // Create the ScriptControl object.
+    ScriptControl := CreateOleObject('ScriptControl');
+    // Set the Language property (VBScript or JavaScript)
+    ScriptControl.Language := 'VBScript';
+    // Now create the WMI object we could not with straight Pascal code.
+    oWMI := ScriptControl.Eval('GetObject("winmgmts:\\.\root\default:Systemrestore")');
+    WizardForm.StatusLabel.Caption := 'Creating restore point...';
+    // Create the restore point.
+    ErrCode := oWMI.CreateRestorePoint(sDescription, 0, 100);
+    // Return the error code, if any.  A value of zero indicates success.
+    Result := (ErrCode = 0);
+  except
+    Result := false;
+  end;
+end;
+
+procedure CurStepChanged(CurStep: TSetupStep);
+begin
+  if CurStep = ssInstall then
+  begin
+    { installation is starting }
+    CreateRestorePoint('Installed GIMX');
+  end;
+end;
