@@ -48,10 +48,6 @@ fi
 USBDK_PRODUCT_CODE_X64="{$(strings $TOOLS_USBDK_DIR/$USBDK_MSI_X64 | grep ProductCode | sed 's/.*ProductCode{//g' | sed 's/}.*//g')}"
 USBDK_PRODUCT_CODE_X86="{$(strings $TOOLS_USBDK_DIR/$USBDK_MSI_X86 | grep ProductCode | sed 's/.*ProductCode{//g' | sed 's/}.*//g')}"
 
-sed -i "s/#define[ ]*UsbdkVersion[ ]*\".*\"/#define UsbdkVersion \"${USBDK_VERSION}\"/" inno.iss
-sed -i "s/#define[ ]*UsbdkAppIdx64[ ]*\".*\"/#define UsbdkAppIdx64 \"${USBDK_PRODUCT_CODE_X64}\"/" inno.iss
-sed -i "s/#define[ ]*UsbdkAppIdx86[ ]*\".*\"/#define UsbdkAppIdx86 \"${USBDK_PRODUCT_CODE_X86}\"/" inno.iss
-
 #
 # cp210x driver
 #
@@ -59,7 +55,6 @@ sed -i "s/#define[ ]*UsbdkAppIdx86[ ]*\".*\"/#define UsbdkAppIdx86 \"${USBDK_PRO
 CP210X_ZIP="CP210x_VCP_Windows.zip"
 
 CP210X_PRODUCT_CODE="3C57DA61F41601ACF85CC77F740AA00672E0BCD7"
-sed -i "s/#define[ ]*SilabsCP210xAppId[ ]*\".*\"/#define SilabsCP210xAppId \"${CP210X_PRODUCT_CODE}\"/" inno.iss
 
 if ! test -f $TOOLS_DIR/$CP210X_ZIP
 then
