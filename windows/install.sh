@@ -13,14 +13,15 @@ pacman --needed --noconfirm -S wget man git make diffutils patch p7zip unzip aut
 
 pacman --force --needed --noconfirm -S mingw-w64-$ARCH-toolchain
 
+pacman --needed --noconfirm -S mingw-w64-$ARCH-libusb-usbdk || pacman --needed --noconfirm -S mingw-w64-$ARCH-libusb
+
 pacman --needed --noconfirm -S \
   mingw-w64-$ARCH-ntldd \
   mingw-w64-$ARCH-pkg-config \
   mingw-w64-$ARCH-gcc \
   mingw-w64-$ARCH-libxml2 \
   mingw-w64-$ARCH-curl \
-  mingw-w64-$ARCH-wxWidgets \
-  mingw-w64-$ARCH-libusb-usbdk
+  mingw-w64-$ARCH-wxWidgets
 
 mkdir gimx-install
 cd gimx-install
