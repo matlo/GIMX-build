@@ -78,4 +78,4 @@ fi
 
 OS=${OS} DIST=${DIST} ARCH=${ARCH} pdebuild
 
-cp /var/cache/pbuilder/${OS}-${DIST}-${ARCH}/result/$PACKAGE\_${VERSION}-1_*.deb
+cp /var/cache/pbuilder/${OS}-${DIST}-${ARCH}/result/$PACKAGE\_${VERSION}-1_*.deb .
