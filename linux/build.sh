@@ -14,7 +14,7 @@ YEAR=`date +"%Y"`
 BRANCH="master"
 
 usage() {
-  echo "usage: ./build <ubuntu, debian, raspbian> <xenial, jessie, stretch> <amd64, i386, armhf>"
+  echo "usage: ./build <ubuntu, debian, raspbian> <bionic, buster> <amd64, i386, armhf>"
 }
 
 echo "OS: "${OS}
