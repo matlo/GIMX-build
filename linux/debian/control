@@ -2,7 +2,7 @@ Source: gimx
 Section: unknown
 Priority: extra
 Maintainer: Matlo <mat.lau@laposte.net>
-Build-Depends: debhelper (>= 7.0.50~), pkg-config, libbluetooth-dev, libxml2-dev, libwxgtk3.0-dev, libusb-1.0-0-dev, libncursesw5-dev, gettext, libmhash-dev, libcurl4-gnutls-dev, libxi-dev, libx11-dev
+Build-Depends: debhelper (>= 7.0.50~), pkg-config, libbluetooth-dev, libxml2-dev, libwxgtk3.0-gtk3-dev, libusb-1.0-0-dev, libncursesw5-dev, gettext, libmhash-dev, libcurl4-gnutls-dev, libxi-dev, libx11-dev
 Standards-Version: 3.8.4
 Homepage: https://github.com/matlo/GIMX
 
@@ -11,6 +11,6 @@ Provides: sixemu
 Conflicts: sixemu
 Replaces: sixemu
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, libbluetooth3, libxml2, libwxgtk3.0-0v5, libusb-1.0-0, libncursesw5, libmhash2, libcurl3-gnutls, xterm, xdg-utils, libx11-6, libxi6, systemd, bluez, avrdude
+Depends: ${shlibs:Depends}, ${misc:Depends}, libbluetooth3, libxml2, libwxgtk3.0-gtk3-0v5, libusb-1.0-0, libncursesw5, libmhash2, libcurl3-gnutls, xterm, xdg-utils, libx11-6, libxi6, systemd, bluez, avrdude
 Description: Game Input MultipleXer
  This software emulates a game controller and allows to control a game console with mice, keyboards, and joysticks.

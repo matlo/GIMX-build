@@ -1,10 +1,5 @@
 #!/bin/bash
 
-#don't forget to add universe to ~/.pbuilderrc
-
-#uncomment in a new build environment
-#sudo apt-get install gdebi devscripts pbuilder debhelper curl build-essential
-
 PACKAGE="gimx"
 OS=$1
 DIST=$2
@@ -14,7 +9,7 @@ YEAR=`date +"%Y"`
 BRANCH="master"
 
 usage() {
-  echo "usage: ./build <ubuntu, debian, raspbian> <bionic, buster> <amd64, i386, armhf>"
+  echo "usage: ./build <ubuntu, debian, raspbian> <focal, buster> <amd64, armhf>"
 }
 
 echo "OS: "${OS}
@@ -44,6 +39,21 @@ then
   exit
 fi
 
+BUILDRESULT=/var/cache/pbuilder/${OS}-${DIST}-${ARCH}/result
+APTCACHE=/var/cache/pbuilder/${OS}-${DIST}-${ARCH}/aptcache
+
+if ! test -f /var/cache/pbuilder/${OS}-${DIST}-${ARCH}-base.tgz
+then
+  sudo apt-get install gdebi devscripts pbuilder debhelper curl build-essential
+  sudo mkdir -p ${APTCACHE}
+  sudo OS=${OS} DIST=${DIST} ARCH=${ARCH} pbuilder create --configfile ./pbuilderrc
+  if [ $? -ne 0 ]
+  then
+    sudo rm -rf /var/cache/pbuilder/${OS}-${DIST}-${ARCH}*
+    exit
+  fi
+fi
+
 rm -rf $PACKAGE*
 
 git clone -b $BRANCH --single-branch --depth 1 --recursive https://github.com/matlo/GIMX.git
@@ -71,13 +81,8 @@ sed -i "s/#DATE#/$DATE/" debian/changelog
 sed -i "s/#DATE#/$DATE/" debian/copyright
 sed -i "s/#YEAR#/$YEAR/" debian/copyright
 
-if [ "${DIST}" == "jessie" ]
-then
-  sed -i "s/libwxgtk3.0-0v5/libwxgtk3.0-0/" debian/control
-fi
-
-OS=${OS} DIST=${DIST} ARCH=${ARCH} pdebuild
+OS=${OS} DIST=${DIST} ARCH=${ARCH} pdebuild --configfile ../pbuilderrc
 
 cd ..
 
-cp /var/cache/pbuilder/${OS}-${DIST}-${ARCH}/result/$PACKAGE\_${VERSION}-1_*.deb .
+cp ${BUILDRESULT}/$PACKAGE\_${VERSION}-1_${ARCH}.deb $PACKAGE\_${VERSION}-1_${OS}-${DIST}-${ARCH}.deb
